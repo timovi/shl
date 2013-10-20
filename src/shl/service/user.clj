@@ -5,7 +5,7 @@
            [shl.service.db :as db]))
 
 (defn add-user [username firstname lastname roleid]
-  (j/insert! db/db :user {:username username 
+  (j/insert! db/db :user_ {:username username 
                           :firstname firstname
                           :lastname lastname
                           :roleid roleid}))
