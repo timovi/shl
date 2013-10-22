@@ -1,8 +1,8 @@
-(ns shl.service.user
+(ns shl.dao.user
   (require [clojure.java.jdbc :as j]
            [honeysql.core :as s]
            [clj-time.coerce :as time]
-           [shl.service.db :as db]))
+           [shl.dao.db :as db]))
 
 (defn add-user [username firstname lastname roleid]
   (j/insert! db/db :user_ {:username username 

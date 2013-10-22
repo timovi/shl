@@ -1,4 +1,4 @@
-(ns shl.service.db)
+(ns shl.dao.db)
 
 ;(def db {:subprotocol (System/getenv "DB_TYPE")
 ;         :subname (System/getenv "DB_URL")

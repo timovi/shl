@@ -3,10 +3,12 @@
   (:require [clojure.string :as str]
             [ring.util.response :as ring]
             [clojure.data.json :as json]
-            [shl.service.conference :as service]))
+            [clj-time.format :as time]
+            [shl.utils.time :as time-utils]
+            [shl.dao.conference :as dao]))
 
 (defn get-active []
-  (json/write-str (service/get-active-tournament)))
+  (json/write-str (dao/get-active-tournament)))
 
 (defn add [name startdate enddate games-per-player 
            playoff-teams-per-conference]
@@ -14,9 +16,13 @@
                  (str/blank? enddate) 
                  (str/blank? games-per-player)
                  (str/blank? playoff-teams-per-conference))
-    (service/add-tournament name startdate enddate games-per-player 
-                            playoff-teams-per-conference))
-  (ring/redirect "/"))
+    (dao/inactivate-tournaments)
+    (dao/add-tournament name 
+                        (time/parse time-utils/formatter startdate) 
+                        (time/parse time-utils/formatter enddate) 
+                        (Integer/parseInt games-per-player) 
+                        (Integer/parseInt playoff-teams-per-conference)))
+  (true))
 
 (defroutes routes
   (GET  "/tournament/get.api" [] (get-active))

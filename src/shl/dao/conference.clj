@@ -1,14 +1,14 @@
-(ns shl.service.conference
+(ns shl.dao.conference
   (require [clojure.java.jdbc :as j]
            [honeysql.core :as s]
            [clj-time.coerce :as time]
-           [shl.service.db :as db]))
+           [shl.dao.db :as db]))
 
 (defn add-tournament [name startdate enddate 
                       games-per-player playoff-teams-per-conference]
   (j/insert! db/db :tournament {:name name 
-                                :startdate startdate
-                                :enddate enddate
+                                :startdate (time/to-sql-date startdate)
+                                :enddate (time/to-sql-date enddate)
                                 :gamesperplayer games-per-player
                                 :playoffteamsperconference playoff-teams-per-conference
                                 :active true}))
@@ -21,16 +21,18 @@
   (j/update! db/db :tournament {:active false}))
 
 (defn- get-active-tournament-sql []
-  (s/build :select :* 
-           :from [[:tournament :t]] 
-           :where [:= :t.active true]
-           :order-by [:t.id]))
+  (first
+    (s/build :select :* 
+             :from [[:tournament :t]] 
+             :where [:= :t.active true]
+             :order-by [[:t.id :desc]])))
 
 (defn get-active-tournament []
-  (first (j/query db/db 
-    (s/format (get-active-tournament-sql))
-    :row-fn #(assoc % :startdate (str (time/from-sql-date (% :startdate)))
-                      :enddate (str (time/from-sql-date (% :enddate))))
+  (first 
+    (j/query db/db 
+       (s/format (get-active-tournament-sql))
+       :row-fn #(assoc % :startdate (str (time/from-sql-date (% :startdate)))
+                         :enddate (str (time/from-sql-date (% :enddate))))
     )))
 
 (defn- get-number-of-games-per-player-sql [conferenceid]

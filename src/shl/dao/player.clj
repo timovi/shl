@@ -1,8 +1,9 @@
-(ns shl.service.player
+(ns shl.dao.player
   (require [clojure.java.jdbc :as j]
+           [clojure.java.jdbc.sql :as sql]
            [honeysql.core :as s]
            [clj-time.coerce :as time]
-           [shl.service.db :as db]))
+           [shl.dao.db :as db]))
 
 (defn add-team [name]
   (j/insert! db/db :team {:name name}))
@@ -13,7 +14,7 @@
                             :teamid teamid}))
 
 (defn remove-player [playerid]
-  (j/delete! :player (j/where {:id playerid})))
+  (j/delete! :player (sql/where {:id playerid})))
 
 (defn- get-teams-sql []
   (s/build :select [:*] 

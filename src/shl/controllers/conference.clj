@@ -3,16 +3,16 @@
   (:require [clojure.string :as str]
             [ring.util.response :as ring]
             [clojure.data.json :as json]
-            [shl.service.conference :as service]))
+            [shl.dao.conference :as dao]))
 
 (defn get-conferences [tournamentid]
-  (json/write-str (service/get-conferences (Integer/parseInt tournamentid))))
+  (json/write-str (dao/get-conferences (Integer/parseInt tournamentid))))
 
 (defn add [name tournamentid]
   (when-not (and (str/blank? name) 
-               (str/blank? tournamentid))
-    (json/write-str (service/add-conference name (Integer/parseInt tournamentid))
-  (ring/redirect "/"))))
+                 (str/blank? tournamentid))
+    (json/write-str (dao/add-conference name (Integer/parseInt tournamentid))
+  (true))))
 
 (defroutes routes
   (GET  "/conferences/get.api" [tournamentid] (get-conferences tournamentid))
