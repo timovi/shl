@@ -1,5 +1,6 @@
 (ns shl.controllers.player
-  (:use [compojure.core :only (defroutes GET POST)])
+  (:use [compojure.core])
+  (:use [ring.util.response])
   (:require [clojure.string :as str]
             [ring.util.response :as ring]
             [clojure.data.json :as json]
@@ -9,7 +10,7 @@
             [shl.dao.conference :as conference-dao]))
 
 (defn get-players [conferenceid]
-  (json/write-str (player-dao/get-players (Integer/parseInt conferenceid))))
+  (response (player-dao/get-players (Integer/parseInt conferenceid))))
 
 (defn add [userid conferenceid teamid]
   (when-not (and (str/blank? userid)
@@ -19,19 +20,17 @@
                            (Integer/parseInt conferenceid)
                            (Integer/parseInt teamid))
     (game-service/add-games userid conferenceid)
-  (true)))
+  (response true)))
 
-(defn remove [playerid]
+(defn delete [playerid]
   (when-not (str/blank? playerid)
     (let [playerid-int (Integer/parseInt playerid)]
       (player-dao/remove-player (Integer/parseInt playerid-int))
       (game-dao/remove-games playerid-int))
-  (true)))
+  (response true)))
 
-(defroutes routes
-  (GET  "/players/get.api" [conferenceid] (get-players conferenceid))
-  (POST "/player/add.api" [userid conferenceid teamid] 
-        (add userid conferenceid teamid))
-  (POST "/player/remove.api" [playerid] 
-        (remove playerid)))
-
+(defroutes app-routes
+  (context "/players" [] (defroutes player-routes
+    (GET  ["/conference/:id" :id #"[0-9]+"] [id] (get-players id))
+    (POST "/" [userid conferenceid teamid] (add userid conferenceid teamid))
+    (DELETE ["/:id" :id #"[0-9]+"] [playerid] (delete playerid)))))

@@ -1,5 +1,6 @@
 (ns shl.controllers.tournament
-  (:use [compojure.core :only (defroutes GET POST)])
+  (:use [compojure.core])
+  (:use [ring.util.response])
   (:require [clojure.string :as str]
             [ring.util.response :as ring]
             [clojure.data.json :as json]
@@ -8,7 +9,7 @@
             [shl.dao.conference :as dao]))
 
 (defn get-active []
-  (json/write-str (dao/get-active-tournament)))
+  (response (dao/get-active-tournament)))
 
 (defn add [name startdate enddate games-per-player 
            playoff-teams-per-conference]
@@ -22,12 +23,23 @@
                         (time/parse time-utils/formatter enddate) 
                         (Integer/parseInt games-per-player) 
                         (Integer/parseInt playoff-teams-per-conference)))
-  (true))
+  (response true))
 
-(defroutes routes
-  (GET  "/tournament/get.api" [] (get-active))
-  (POST "/tournament/add.api" [name startdate enddate games-per-player 
-                               playoff-teams-per-conference] 
+(defn get-conferences [tournamentid]
+  (response (dao/get-conferences (Integer/parseInt tournamentid))))
+
+(defn add-conference [name tournamentid]
+  (when-not (and (str/blank? name) 
+                 (str/blank? tournamentid))
+    (dao/add-conference name (Integer/parseInt tournamentid)
+  (response true))))
+
+(defroutes app-routes
+  (context "/tournaments" [] (defroutes tournament-routes
+    (GET "/active" [] (get-active))
+    (POST "/" [name startdate enddate games-per-player 
+               playoff-teams-per-conference] 
         (add name startdate enddate games-per-player 
-             playoff-teams-per-conference)))
-
+             playoff-teams-per-conference))
+    (GET  ["/:id/conferences", :id #"[0-9]+"] [id] (get-conferences id))
+    (POST "/conferences" [name tournamentid] (add-conference name tournamentid)))))

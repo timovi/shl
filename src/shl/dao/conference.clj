@@ -21,11 +21,10 @@
   (j/update! db/db :tournament {:active false}))
 
 (defn- get-active-tournament-sql []
-  (first
     (s/build :select :* 
              :from [[:tournament :t]] 
              :where [:= :t.active true]
-             :order-by [[:t.id :desc]])))
+             :order-by [[:t.id :desc]]))
 
 (defn get-active-tournament []
   (first 

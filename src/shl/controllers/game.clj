@@ -1,5 +1,6 @@
 (ns shl.controllers.game
-  (:use [compojure.core :only (defroutes GET POST)])
+  (:use [compojure.core])
+  (:use [ring.util.response])
   (:require [clojure.string :as str]
             [ring.util.response :as ring]
             [clojure.data.json :as json]
@@ -20,10 +21,11 @@
                      (Boolean/valueOf overtime)
                      (Boolean/valueOf shootout)
                      (time/parse time-utils/formatter playdate)))
-  (true))
+  (response(true)))
 
-(defroutes routes
-  (POST "/game/update.api" [gameid home-goals away-goals 
-                            overtime shootout playdate] 
-        (update gameid home-goals away-goals overtime shootout playdate)))
+(defroutes app-routes
+  (context "/games" [] (defroutes game-routes
+    (PUT "/" [gameid home-goals away-goals 
+              overtime shootout playdate] 
+      (update gameid home-goals away-goals overtime shootout playdate)))))
 
