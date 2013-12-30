@@ -2,7 +2,6 @@
   (require [clojure.java.jdbc :as j]
            [clojure.java.jdbc.sql :as sql]
            [honeysql.core :as s]
-           [clj-time.coerce :as time]
            [shl.dao.db :as db]))
 
 (defn add-team [name]

@@ -2,6 +2,7 @@
   (require [clojure.java.jdbc :as j]
            [honeysql.core :as s]
            [clj-time.coerce :as time]
+           [shl.utils.time :as time-utils]
            [shl.dao.db :as db]))
 
 (defn add-tournament [name startdate enddate 
@@ -30,8 +31,8 @@
   (first 
     (j/query db/db 
        (s/format (get-active-tournament-sql))
-       :row-fn #(assoc % :startdate (str (time/from-sql-date (% :startdate)))
-                         :enddate (str (time/from-sql-date (% :enddate))))
+       :row-fn #(assoc % :startdate (str (time-utils/from-sql-date (% :startdate)))
+                         :enddate (str (time-utils/from-sql-date (% :enddate))))
     )))
 
 (defn- get-number-of-games-per-player-sql [conferenceid]

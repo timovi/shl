@@ -1,0 +1,110 @@
+body{
+	font-family: 'Titillium Web', sans-serif;
+	padding: 0;
+	margin:0;
+}
+
+h1{
+	font-size: 3em;
+
+}
+
+ul,li{
+	list-style: none;
+	margin:0;
+	padding:0;
+}
+
+table td, table th
+{
+	text-align: center;
+	padding: 10px;
+}
+
+nav
+{
+	width: 100%;
+	margin: 0 auto;
+}
+
+nav li{
+	background: #f7f4f4;	
+	margin-bottom: 10px;
+	text-align: center;
+	font-size: 2em;
+}
+
+nav a, .tab a{
+	color: #6f7074;
+	text-decoration: none;
+}
+.north:hover, .south:hover
+{
+	color: #fff;
+}
+.north:hover{background: #e52a82;}
+.south:hover{background: #00a9a7;}
+
+.container, .contentWrapper
+{
+ 	margin: 0 auto;
+}
+
+header, .contentWrapper, footer{
+	margin: 0 auto;
+	max-width: 900px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+header, footer
+{
+	text-align: center;
+}
+
+.contentWrapper ul
+{
+	display: inline-block;
+}
+
+.content
+{
+	min-height: 300px;
+}
+
+.content h2
+{
+	color:#e52a82;
+}
+
+.content ul li
+{
+	float: left;
+}
+
+.tab
+{
+	float: left;
+	background: #f7f4f4;
+	font-size: 1em;
+	overflow: auto;
+	margin-right: 10px;
+	padding: 10px 10px 10px 10px;
+	-webkit-border-top-left-radius: 10px;
+	-webkit-border-top-right-radius: 10px;
+	-moz-border-radius-topleft: 10px;
+	-moz-border-radius-topright: 10px;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	
+}
+
+.tab a:hover
+{
+	color:#e52a82;
+}
+
+.ohjelma
+{
+	
+}

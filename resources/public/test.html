@@ -1,0 +1,211 @@
+<html>
+<head>
+    <title>SHL Admin page</title>
+</head>
+<body>
+    <h1>SHL Admin page</h1>
+    
+    <h2>Users</h2>
+    <div>
+        <a href="/users/<username>">Get user</a>
+    </div>
+    <hr />
+    
+    <h2>Roles</h2>
+    <div>
+        <a href="/roles">Get roles</a>
+    </div>
+    <hr />
+    
+    
+    <h2>Teams</h2>
+    <div>
+        <a href="/teams/">Get teams</a>
+    </div>
+    <hr />
+    
+    <h3>Add team</h3>
+    <div>
+        <form action="/teams/" method="post">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" name="name" /></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="Add" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <hr />
+    
+    <h2>Tournaments</h2>
+    <div>
+        <a href="/tournaments/active">Get active tournament</a>
+    </div>
+    <hr />
+    
+    <h3>Add tournament</h3>
+    <div>
+        <form action="/tournaments/" method="post">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" name="name" /></td>
+                </tr>
+                <tr>
+                    <td>Start date</td>
+                    <td><input type="text" name="start-date" /></td>
+                </tr>
+                <tr>
+                    <td>End date</td>
+                    <td><input type="text" name="end-date" /></td>
+                </tr>
+                <tr>
+                    <td>Rounds</td>
+                    <td><input type="text" name="games-per-player" /></td>
+                </tr>
+                <tr>
+                    <td>Play-off teams per conference</td>
+                    <td><input type="text" name="playoff-teams-per-conference" /></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="Add" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <hr />
+    
+    <h2>Conferences</h2>
+    <div>
+        <a href="/tournaments/<id>/conferences/">Get conferences</a>
+    </div>
+    <hr />
+    
+    <h3>Add conference</h3>
+    <div>
+        <form action="/tournaments/conferences/" method="post">
+            <table>
+                <tr>
+                    <td>Name</td>
+                    <td><input type="text" name="name" /></td>
+                </tr>
+                <tr>
+                    <td>Tournament id</td>
+                    <td><input type="text" name="tournamentid" /></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="Add" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <hr />
+    
+    <h2>Players</h2>
+    <div>
+        <a href="/players/conference/<conferenceid>">Get players</a>
+    </div>
+    <hr />
+    
+    <h3>Add player</h3>
+    <div>
+        <form action="/players/" method="post">
+            <table>
+                <tr>
+                    <td>User id</td>
+                    <td><input type="text" name="userid" /></td>
+                </tr>
+                <tr>
+                    <td>Conference id</td>
+                    <td><input type="text" name="conferenceid" /></td>
+                </tr>
+                <tr>
+                    <td>Team id</td>
+                    <td><input type="text" name="teamid" /></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="Add" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    
+    <h3>Delete player</h3>
+    <div>
+        <form action="/players/" method="delete">
+            <table>
+                <tr>
+                    <td>Player id</td>
+                    <td><input type="text" name="playerid" /></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="Delete" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    
+    <h2>Games</h2>
+    <div>
+        <a href="/games/conference/<conferenceid>">Get games</a>
+    </div>
+    <hr />
+    
+    <h3>Update game</h3>
+    <div>
+        <form action="/games/" method="put">
+            <table>
+                <tr>
+                    <td>Game id</td>
+                    <td><input type="text" name="gameid" /></td>
+                </tr>
+                <tr>
+                    <td>Home goals</td>
+                    <td><input type="text" name="home-goals" /></td>
+                </tr>
+                <tr>
+                    <td>Away goals</td>
+                    <td><input type="text" name="away-goals" /></td>
+                </tr>
+                <tr>
+                    <td>Overtime</td>
+                    <td><input type="text" name="overtime" /></td>
+                </tr>
+                <tr>
+                    <td>Shootout</td>
+                    <td><input type="text" name="shootout" /></td>
+                </tr>
+                <tr>
+                    <td>Play date</td>
+                    <td><input type="text" name="playdate" /></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="Add" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    
+    <h2>Stats</h2>
+    <div>
+        <a href="/stats/tournament/<tournamentid>">Get tournament statistics</a>
+    </div>
+    <div>
+        <a href="/stats/conference/<conferenceid>">Get conference statistics</a>
+    </div>
+    <div>
+        <a href="/stats/player/<playerid>">Get player statistics</a>
+    </div>
+    <hr />
+    
+</body>
+</html>

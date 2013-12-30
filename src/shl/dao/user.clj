@@ -1,7 +1,6 @@
 (ns shl.dao.user
   (require [clojure.java.jdbc :as j]
            [honeysql.core :as s]
-           [clj-time.coerce :as time]
            [shl.dao.db :as db]))
 
 (defn add-user [username firstname lastname roleid]

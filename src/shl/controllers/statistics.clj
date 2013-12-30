@@ -9,13 +9,13 @@
             [shl.service.statistics :as service]))
 
 (defn get-tournament-standings [tournamentid]
-  (response (service/get-tournament-standings tournamentid)))
+  (response (service/get-tournament-standings (Integer/parseInt tournamentid))))
 
 (defn get-conference-standings [conferenceid]
-  (response (service/get-conference-standings conferenceid)))
+  (response (service/get-conference-standings (Integer/parseInt conferenceid))))
 
 (defn get-player-standings [playerid]
-  (response (service/get-player-standings playerid)))
+  (response (service/get-player-standings (Integer/parseInt playerid))))
 
 (defroutes app-routes
   (context "/stats" [] (defroutes stats-routes

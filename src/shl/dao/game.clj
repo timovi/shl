@@ -4,11 +4,16 @@
            [honeysql.core :as s]
            [clj-time.coerce :as time]
            [clj-time.core :as t]
+           [shl.utils.time :as time-utils]
            [shl.dao.db :as db]))
 
 (defn add-game [home-playerid away-playerid]
   (j/insert! db/db :game {:homeplayerid home-playerid
-                          :awayplayerid away-playerid}))
+                          :awayplayerid away-playerid
+                          :homegoals 0
+                          :awaygoals 0
+                          :overtime false
+                          :shootout false}))
 
 ;; Using the traditional sql-string because 
 ;; a) honeySql doesn't yet support DELETE clause
@@ -83,8 +88,8 @@
 (defn get-player-games [playerid]
   (j/query db/db 
     (s/format (get-player-games-sql playerid))
-    :row-fn #(assoc % :playdate (str (time/from-sql-date (% :playdate)))
-                      :modifieddate (str (time/from-sql-date (% :modifieddate)))) 
+    :row-fn #(assoc % :playdate (time-utils/from-sql-date (% :playdate))
+                      :modifieddate (time-utils/from-sql-date (% :modifieddate))) 
    ))
 
 (defn- get-player-game-results-sql [playerid]
