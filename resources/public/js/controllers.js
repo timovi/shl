@@ -1,9 +1,6 @@
 'use strict';
 
-
-
-
-function TeamListCtrl($scope) {
+angular.module("shl").controller('shlCtrl', ['$scope', function ($scope) {
 
   $scope.Read = true;
   $scope.logged = false;
@@ -172,5 +169,6 @@ function TeamListCtrl($scope) {
     ];
   }
   }
-}
+  
+}]);
 
