@@ -43,9 +43,9 @@
            :order-by [:t.id]))
 
 (defn get-number-of-games-per-player [conferenceid]
-  (j/query db/db
+  (first (j/query db/db
     (s/format (get-number-of-games-per-player-sql conferenceid))
-    ))
+    )))
 
 (defn- get-conferences-sql [tournamentid]
   (s/build :select [:name :id] 

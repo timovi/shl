@@ -4,23 +4,25 @@
             [shl.dao.conference :as conference-dao]))
 
 (defn- add-game [playerid opponentid home]
-  (if (home) 
+  (if (= home true) 
     (game-dao/add-game playerid opponentid)
     (game-dao/add-game opponentid playerid)))
 
-(defn- add-games [playerid opponentid home count]
-  (when (> 0 count)
-    (add-game playerid opponentid home)
-    (add-games playerid opponentid (not home) (- count))))
+(defn- add-games3 [playerid opponentid count]
+  (when (> count 0)
+    (add-game playerid opponentid true)
+    (add-game playerid opponentid false)
+    (add-games3 playerid opponentid (- count 1))))
 
-(defn- add-games [playerid players count]
-  (let [opponentid (first players)]
-    (if-not (= playerid opponentid) 
-      (add-games playerid opponentid true count))
-    (add-games playerid (rest players) count)))
+(defn- add-games2 [playerid players count]
+  (if-not (empty? players)
+    (let [opponentid (first players)]
+      (if-not (= playerid opponentid) 
+        (add-games3 playerid opponentid count))
+      (add-games2 playerid (rest players) count))))
 
 (defn add-games [userid conferenceid]
-  (let [playerid (player-dao/get-player-id userid conferenceid)
-        players (player-dao/get-playerids conferenceid)
-        game-count (conference-dao/get-number-of-games-per-player conferenceid)]
-       (add-games playerid players game-count)))
+  (let [playerid (:id (player-dao/get-player-id userid conferenceid))
+        players (map :id (player-dao/get-playerids conferenceid))
+        game-count (:gamesperplayer (conference-dao/get-number-of-games-per-player conferenceid))]
+       (add-games2 playerid players game-count)))
