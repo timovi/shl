@@ -1,17 +1,27 @@
 'use strict';
 
-angular.module("shl").controller('shlCtrl', ['$scope', function ($scope) {
+angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', 'GetConferences', 'GetUser', 
+  function ($scope, GetActiveTournaments, GetConferences, GetUser) {
 
   $scope.Read = true;
   $scope.logged = false;
 
   $scope.login = function()
   {
-    console.log("Kirjautunut:" + this.username);
-    $scope.username = this.username;
+    //console.log("Kirjautunut:" + this.username);
+    getUser(this.username, function(user){
+      $scope.user = user;
+    });
     $scope.logged = true;
-    
+    getTournament(function(tournament){
+      $scope.tournament = tournament;
+      getConferences(tournament.id, function(conferences){
+      $scope.conferences = conferences;
+    });
+    });
   }
+
+
 
   $scope.IsLogin = function()
   {
@@ -59,9 +69,6 @@ angular.module("shl").controller('shlCtrl', ['$scope', function ($scope) {
     $scope.showWrapper = true;
     $scope.showSchedule = true;
     $scope.showStandings = false;
-   
-
-    console.log(id);
     if(id === 0){
       $scope.id= id;
       $scope.scheduleHeader = "Pohjoinen Konferenssi -sarjaohjelma"   
@@ -122,13 +129,13 @@ angular.module("shl").controller('shlCtrl', ['$scope', function ($scope) {
 }
 
 
-  $scope.sarjataulukko = function(id) {
+  $scope.sarjataulukko = function(id, conferenceName) {
     $scope.showWrapper = true;
     $scope.showSchedule = false;
     $scope.showStandings = true;
     $scope.id= id;
-    if(id === 0){
-    	$scope.conference = "Pohjoinen Konferenssi"
+    if(id === 3){
+    	$scope.conferenceName = conferenceName;
     	$scope.teams = [
       {"name": "Capitals",
        "games": "3",
@@ -148,7 +155,7 @@ angular.module("shl").controller('shlCtrl', ['$scope', function ($scope) {
     ];
   }
 
-  if(id === 1){
+  /*if(id === 1){
     	$scope.conference = "Eteläinen Konferenssi"
     	$scope.teams = [
       {"name": "Sharks",
@@ -167,8 +174,29 @@ angular.module("shl").controller('shlCtrl', ['$scope', function ($scope) {
        "againtsGoals": "3",
        "points": "12"}
     ];
+  }*/
+
   }
-  }
+
+    var getTournament = function(callback){
+      return GetActiveTournaments.get({
+        }, callback);
+    };
+
+    var getConferences = function(TournamentId, callback){
+      return GetConferences.get({
+        id : TournamentId
+        }, callback);
+    };
+
+    var getUser = function(UserName, callback){
+      return GetUser.get({
+        username : UserName
+        }, callback);
+    };
   
 }]);
+
+
+
 
