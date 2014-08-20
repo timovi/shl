@@ -43,6 +43,6 @@
            :where [:= :u.username username]))
 
 (defn get-user [username]
-  (j/query db/db 
-    (s/format (get-user-sql username))))
+  (first(j/query db/db 
+    (s/format (get-user-sql username)))))
 

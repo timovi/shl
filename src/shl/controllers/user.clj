@@ -11,7 +11,7 @@
 
 (defn get-user [username]
   (when-not (str/blank? username) 
-    (first(response (dao/get-user username)))))
+    (response (dao/get-user username))))
 
 (defn add [username firstname lastname roleid]
   (when-not (and (str/blank? username) 
