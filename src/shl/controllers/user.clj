@@ -24,7 +24,7 @@
 (defroutes app-routes
   (context "/users" [] (defroutes user-routes
     (GET "/" [] (get-users))
-    (GET "/:username" [username] (get-user username)) 
+    (GET "/:username/" [username] (get-user username)) 
     (POST "/" [username firstname lastname roleid] 
         (add username firstname lastname roleid)))))
 

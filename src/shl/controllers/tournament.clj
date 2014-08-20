@@ -31,15 +31,15 @@
 (defn add-conference [name tournamentid]
   (when-not (and (str/blank? name) 
                  (str/blank? tournamentid))
-    (dao/add-conference name (Integer/parseInt tournamentid)
-  (response true))))
+    (dao/add-conference name (Integer/parseInt tournamentid)))
+  (response true))
 
 (defroutes app-routes
   (context "/tournaments" [] (defroutes tournament-routes
-    (GET "/active" [] (get-active))
+    (GET "/active/" [] (get-active))
     (POST "/" [name startdate enddate games-per-player 
                playoff-teams-per-conference] 
         (add name startdate enddate games-per-player 
              playoff-teams-per-conference))
-    (GET  ["/:id/conferences", :id #"[0-9]+"] [id] (get-conferences id))
-    (POST "/conferences" [name tournamentid] (add-conference name tournamentid)))))
+    (GET  ["/:id/conferences/", :id #"[0-9]+"] [id] (get-conferences id))
+    (POST "/conferences/" [name tournamentid] (add-conference name tournamentid)))))

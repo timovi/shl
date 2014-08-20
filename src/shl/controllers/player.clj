@@ -31,6 +31,6 @@
 
 (defroutes app-routes
   (context "/players" [] (defroutes player-routes
-    (GET  ["/conference/:id" :id #"[0-9]+"] [id] (get-players id))
+    (GET  ["/conference/:id/" :id #"[0-9]+"] [id] (get-players id))
     (POST "/" [userid conferenceid teamid] (add userid conferenceid teamid))
-    (DELETE ["/:id" :id #"[0-9]+"] [playerid] (delete playerid)))))
+    (DELETE ["/:id/" :id #"[0-9]+"] [playerid] (delete playerid)))))

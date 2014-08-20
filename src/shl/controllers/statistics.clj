@@ -19,6 +19,6 @@
 
 (defroutes app-routes
   (context "/stats" [] (defroutes stats-routes
-    (GET ["/tournament/:id" :id #"[0-9]+"] [id] (get-tournament-standings id))
-    (GET ["/conference/:id" :id #"[0-9]+"] [id] (get-conference-standings id))
-    (GET ["/player/:id" :id #"[0-9]+"] [id] (get-player-standings id)))))
+    (GET ["/tournament/:id/" :id #"[0-9]+"] [id] (get-tournament-standings id))
+    (GET ["/conference/:id/" :id #"[0-9]+"] [id] (get-conference-standings id))
+    (GET ["/player/:id/" :id #"[0-9]+"] [id] (get-player-standings id)))))
