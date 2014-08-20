@@ -10,5 +10,5 @@ angular.module('shlServices', ['ngResource'])
         return $resource(host + '/tournaments/:id/conferences/ ', {}, { 'get': {method: 'GET', isArray: true }});
     }])
     .factory('GetUser', ['$resource', function ($resource) {
-        return $resource(host + '/users/:username/ ', {}, { 'get': {method: 'GET', isArray: false }});
+        return $resource(host + '/users/:username/ ', {}, { 'get': {method: 'GET', isArray: true}});
     }]);
