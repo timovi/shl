@@ -19,7 +19,7 @@
                                 :tournamentid tournamentid}))
 
 (defn inactivate-tournaments []
-  (j/update! db/db :tournament {:active false}))
+  (j/update! db/db :tournament {:active false} ["active = ?" true]))
 
 (defn- get-active-tournament-sql []
     (s/build :select :* 
