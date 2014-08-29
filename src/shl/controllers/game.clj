@@ -21,7 +21,7 @@
                      (Boolean/valueOf overtime)
                      (Boolean/valueOf shootout)
                      (time/parse time-utils/formatter playdate)))
-  (response(true)))
+  (response true))
 
 (defn get-conference-games [conferenceid]
   (response (dao/get-conference-games (Integer/parseInt conferenceid))))
@@ -29,7 +29,7 @@
 (defroutes app-routes
   (context "/games" [] (defroutes game-routes
     (GET ["/conference/:id/" :id #"[0-9]+"] [id] (get-conference-games id))
-    (PUT "/" [gameid home-goals away-goals 
+    (POST "/" [gameid home-goals away-goals 
               overtime shootout playdate] 
       (update gameid home-goals away-goals overtime shootout playdate)))))
 
