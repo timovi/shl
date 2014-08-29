@@ -35,6 +35,18 @@
                          :enddate (str (time-utils/from-sql-date (% :enddate))))
     )))
 
+(defn- get-tournaments-sql []
+    (s/build :select :* 
+             :from [[:tournament :t]] 
+             :order-by [[:t.id :desc]]))
+
+(defn get-tournaments []
+    (j/query db/db 
+       (s/format (get-tournaments-sql))
+       :row-fn #(assoc % :startdate (str (time-utils/from-sql-date (% :startdate)))
+                         :enddate (str (time-utils/from-sql-date (% :enddate))))
+    ))
+
 (defn- get-number-of-games-per-player-sql [conferenceid]
   (s/build :select :t.gamesperplayer 
            :from [[:conference :c]]

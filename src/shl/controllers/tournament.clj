@@ -11,6 +11,9 @@
 (defn get-active []
   (response (dao/get-active-tournament)))
 
+(defn get-tournaments []
+  (response (dao/get-tournaments)))
+
 (defn add [name startdate enddate games-per-player 
            playoff-teams-per-conference]
   (when-not (and (str/blank? name) 
@@ -37,6 +40,7 @@
 (defroutes app-routes
   (context "/tournaments" [] (defroutes tournament-routes
     (GET "/active/" [] (get-active))
+    (GET "/" [] (get-tournaments))
     (POST "/" [name startdate enddate games-per-player 
                playoff-teams-per-conference] 
         (add name startdate enddate games-per-player 
