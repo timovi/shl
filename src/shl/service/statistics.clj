@@ -77,7 +77,7 @@
          :goals-let (+ (prev :goals-let) (curr :goals-let))
          :points (+ (prev :points) (curr :points))
         }) 
-      {:playerid playerid :win 0 :ot-win 0 :ot-defeat 0 :defeat 0 :not-played 0}
+      {:playerid playerid :win 0 :ot-win 0 :ot-defeat 0 :defeat 0 :not-played 0 :goals-scored 0 :goals-let 0 :points 0}
       stats)))
 
 
