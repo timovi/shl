@@ -68,7 +68,7 @@
 
 (defn get-game [gameid]
     (first (j/query db/db 
-       (s/format (get-game-sql))
+       (s/format (get-game-sql gameid))
        :row-fn #(assoc % :playdate (str (time-utils/from-sql-date (% :playdate)))
                          :modifieddate (str (time-utils/from-sql-date (% :modifieddate))))
     )))
