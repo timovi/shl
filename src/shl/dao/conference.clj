@@ -70,4 +70,13 @@
     (s/format (get-conferences-sql tournamentid))
     ))
 
+(defn- get-conferenceids-sql [tournamentid]
+  (s/build :select [:c.id] 
+           :from [[:conference :c]]
+           :where [:= :c.tournamentid tournamentid] 
+           :order-by [:c.id]))
 
+(defn get-conferenceids [tournamentid]
+  (j/query db/db 
+    (s/format (get-conferenceids-sql tournamentid))
+    ))

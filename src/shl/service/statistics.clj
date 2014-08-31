@@ -11,7 +11,7 @@
              :defeat 0
              :not-played 0})
 
-(defn map-game [playerid result goals-scored goals-let]
+(defn- map-game [playerid result goals-scored goals-let]
   {:playerid playerid
    :result result 
    :goals-scored goals-scored
@@ -47,7 +47,6 @@
   (let [games (game-dao/get-player-games playerid)]
     (get-player-game-results playerid games)))
 
-
 (defn get-conference-stats [conferenceid]
   (let [players (player-dao/get-playerids conferenceid)
         games (game-dao/get-conference-games conferenceid)
@@ -58,14 +57,13 @@
       (map #(get-game-results (% :id) (get away-games (% :id)) true) players)
     )))
 
-(defn inc-result [prev curr result-key]
+(defn- inc-result [prev curr result-key]
   (if (= (curr :result) result-key) 
     (inc (prev result-key)) 
     (prev result-key)))
 
-(defn get-player-standings [playerid]
-  (let [stats (get-player-stats playerid)]
-    (reduce 
+(defn- calculate-player-standings [games playerid]
+  (reduce 
       (fn[prev curr] 
         {:playerid (prev :playerid)
          :win (inc-result prev curr :win)
@@ -78,22 +76,24 @@
          :points (+ (prev :points) (curr :points))
         }) 
       {:playerid playerid :win 0 :ot-win 0 :ot-defeat 0 :defeat 0 :not-played 0 :goals-scored 0 :goals-let 0 :points 0}
-      stats)))
+      games))
 
+
+(defn get-player-standings [playerid]
+  (calculate-player-standings (get-player-stats playerid) playerid))
+
+(defn- calculate-conference-standings [games]
+  (if-not (empty? games) 
+    (conj (calculate-conference-standings (rest games))
+          (calculate-player-standings (first games) ((first (first games)) :playerid)))
+    []))
 
 (defn get-conference-standings [conferenceid]
-  (let [players (player-dao/get-playerids conferenceid)
-        games (game-dao/get-conference-games conferenceid)
-        home-games (group-by :homeplayerid games)
-        away-games (group-by :awayplayerid games)]
-    (sort-by :points 
-      (concat
-        (map #(get-game-results (% :id) (get home-games (% :id)) true) players)
-        (map #(get-game-results (% :id) (get away-games (% :id)) true) players)
-    ))))
+  (let [stats (get-conference-stats conferenceid)]
+    (sort-by :points #(compare %2 %1)
+      (calculate-conference-standings stats))))
 
 (defn get-tournament-standings [tournamentid]
-  (let [conferences (conference-dao/get-conferences tournamentid)]
-    (sort-by :points
-      (concat
-         get-conference-standings))))
+  (let [conferenceids (conference-dao/get-conferenceids tournamentid)]
+    (sort-by :points #(compare %2 %1)
+      (reduce (fn[prev curr] (get-conference-standings (curr :id))) [] conferenceids))))

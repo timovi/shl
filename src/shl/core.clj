@@ -8,6 +8,7 @@
             [shl.controllers.player :as player]
             [shl.controllers.role :as role]
             [shl.controllers.statistics :as statistics]
+            [shl.controllers.standings :as standings]
             [shl.controllers.team :as team]
             [shl.controllers.tournament :as tournament]
             [shl.controllers.user :as user]))
@@ -17,6 +18,7 @@
   player/app-routes
   role/app-routes
   statistics/app-routes
+  standings/app-routes
   team/app-routes
   tournament/app-routes
   user/app-routes

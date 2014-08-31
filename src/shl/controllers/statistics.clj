@@ -8,17 +8,13 @@
             [shl.utils.time :as time-utils]
             [shl.service.statistics :as service]))
 
-(defn get-tournament-standings [tournamentid]
-  (response (service/get-tournament-standings (Integer/parseInt tournamentid))))
+(defn get-conference-statistics [conferenceid]
+  (response (service/get-conference-stats (Integer/parseInt conferenceid))))
 
-(defn get-conference-standings [conferenceid]
-  (response (service/get-conference-standings (Integer/parseInt conferenceid))))
-
-(defn get-player-standings [playerid]
-  (response (service/get-player-standings (Integer/parseInt playerid))))
+(defn get-player-statistics [playerid]
+  (response (service/get-player-stats (Integer/parseInt playerid))))
 
 (defroutes app-routes
-  (context "/stats" [] (defroutes stats-routes
-    (GET ["/tournament/:id/" :id #"[0-9]+"] [id] (get-tournament-standings id))
-    (GET ["/conference/:id/" :id #"[0-9]+"] [id] (get-conference-standings id))
-    (GET ["/player/:id/" :id #"[0-9]+"] [id] (get-player-standings id)))))
+  (context "/statistics" [] (defroutes statistics-routes
+    (GET ["/conference/:id/" :id #"[0-9]+"] [id] (get-conference-statistics id))
+    (GET ["/player/:id/" :id #"[0-9]+"] [id] (get-player-statistics id)))))
