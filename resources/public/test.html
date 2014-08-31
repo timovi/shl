@@ -70,15 +70,32 @@
                 </tr>
                 <tr>
                     <td>Rounds</td>
-                    <td><input type="text" name="games-per-player" /></td>
+                    <td><input type="number" name="games-per-player" /></td>
                 </tr>
                 <tr>
                     <td>Play-off teams per conference</td>
-                    <td><input type="text" name="playoff-teams-per-conference" /></td>
+                    <td><input type="number" name="playoff-teams-per-conference" /></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
                     <td><input type="submit" value="Add" /></td>
+                </tr>
+            </table>
+        </form>
+    </div>
+    <hr />
+    
+    <h3>Activate tournament</h3>
+    <div>
+        <form action="/tournaments/activate/" method="post">
+            <table>
+                <tr>
+                    <td>Tournament id</td>
+                    <td><input type="number" name="tournamentid" /></td>
+                </tr>
+                <tr>
+                    <td>&nbsp;</td>
+                    <td><input type="submit" value="Activate" /></td>
                 </tr>
             </table>
         </form>
@@ -101,7 +118,7 @@
                 </tr>
                 <tr>
                     <td>Tournament id</td>
-                    <td><input type="text" name="tournamentid" /></td>
+                    <td><input type="number" name="tournamentid" /></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
@@ -124,15 +141,15 @@
             <table>
                 <tr>
                     <td>User id</td>
-                    <td><input type="text" name="userid" /></td>
+                    <td><input type="number" name="userid" /></td>
                 </tr>
                 <tr>
                     <td>Conference id</td>
-                    <td><input type="text" name="conferenceid" /></td>
+                    <td><input type="number" name="conferenceid" /></td>
                 </tr>
                 <tr>
                     <td>Team id</td>
-                    <td><input type="text" name="teamid" /></td>
+                    <td><input type="number" name="teamid" /></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
@@ -148,7 +165,7 @@
             <table>
                 <tr>
                     <td>Player id</td>
-                    <td><input type="text" name="playerid" /></td>
+                    <td><input type="number" name="playerid" /></td>
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
@@ -170,15 +187,15 @@
             <table>
                 <tr>
                     <td>Game id</td>
-                    <td><input type="text" name="gameid" /></td>
+                    <td><input type="number" name="gameid" /></td>
                 </tr>
                 <tr>
                     <td>Home goals</td>
-                    <td><input type="text" name="home-goals" /></td>
+                    <td><input type="number" name="home-goals" /></td>
                 </tr>
                 <tr>
                     <td>Away goals</td>
-                    <td><input type="text" name="away-goals" /></td>
+                    <td><input type="number" name="away-goals" /></td>
                 </tr>
                 <tr>
                     <td>Overtime</td>
@@ -194,7 +211,7 @@
                 </tr>
                 <tr>
                     <td>&nbsp;</td>
-                    <td><input type="submit" value="Add" /></td>
+                    <td><input type="submit" value="Update" /></td>
                 </tr>
             </table>
         </form>

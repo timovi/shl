@@ -12,7 +12,7 @@
 (defn add [name]
   (when-not (str/blank? name)
     (dao/add-team name)
-  (response true)))
+    (response (dao/get-team name))))
 
 (defroutes app-routes
   (context "/teams" [] (defroutes team-routes

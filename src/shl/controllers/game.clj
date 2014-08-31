@@ -21,7 +21,7 @@
                      (Boolean/valueOf overtime)
                      (Boolean/valueOf shootout)
                      (time/parse time-utils/formatter playdate)))
-  (response true))
+  (response (dao/get-game (Integer/parseInt gameid))))
 
 (defn get-conference-games [conferenceid]
   (response (dao/get-conference-games (Integer/parseInt conferenceid))))

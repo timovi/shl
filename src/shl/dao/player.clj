@@ -24,16 +24,40 @@
   (j/query db/db 
     (s/format (get-teams-sql))))
 
+(defn- get-team-sql [name]
+  (s/build :select [:*] 
+           :from [:team]
+           :where [:= :name name]
+           :order-by [:id]
+           :limit 1))
+
+(defn get-team [name]
+  (first (j/query db/db 
+    (s/format (get-team-sql name)))))
+
 (defn- get-player-id-sql [userid conferenceid]
   (s/build :select [:p.id]
            :from [[:player :p]]
-           :where [:and [:= :p.userid userid] [:= :p.conferenceid conferenceid]]
+           :where [:and [:= :p.userid userid] 
+                        [:= :p.conferenceid conferenceid]]
            :order-by [:p.id]
            :limit 1))
 
 (defn get-player-id [userid conferenceid]
   (first (j/query db/db
     (s/format (get-player-id-sql userid conferenceid)))))
+
+(defn- get-player-sql [userid conferenceid]
+  (s/build :select :*
+           :from [[:player :p]]
+           :where [:and [:= :p.userid userid] 
+                        [:= :p.conferenceid conferenceid]]
+           :order-by [:p.id]
+           :limit 1))
+
+(defn get-player [userid conferenceid]
+  (first (j/query db/db
+    (s/format (get-player-sql userid conferenceid)))))
 
 (defn- get-players-sql [conferenceid]
   (s/build :select [[:p.id "id"] 

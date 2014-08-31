@@ -11,6 +11,12 @@
 (defn get-active []
   (response (dao/get-active-tournament)))
 
+(defn activate-tournament [tournamentid]
+  (when-not (str/blank? tournamentid)
+    (dao/inactivate-tournaments)
+    (dao/activate-tournament (Integer/parseInt tournamentid))
+    (response (dao/get-tournament (Integer/parseInt tournamentid)))))
+
 (defn get-tournaments []
   (response (dao/get-tournaments)))
 
@@ -20,13 +26,12 @@
                  (str/blank? enddate) 
                  (str/blank? games-per-player)
                  (str/blank? playoff-teams-per-conference))
-    (dao/inactivate-tournaments)
     (dao/add-tournament name 
                         (time/parse time-utils/formatter startdate) 
                         (time/parse time-utils/formatter enddate) 
                         (Integer/parseInt games-per-player) 
-                        (Integer/parseInt playoff-teams-per-conference)))
-  (response true))
+                        (Integer/parseInt playoff-teams-per-conference))
+    (response (dao/get-tournament-by-name name))))
 
 (defn get-conferences [tournamentid]
   (response (dao/get-conferences (Integer/parseInt tournamentid))))
@@ -35,11 +40,12 @@
   (when-not (and (str/blank? name) 
                  (str/blank? tournamentid))
     (dao/add-conference name (Integer/parseInt tournamentid)))
-  (response true))
+  (response (dao/get-conference name (Integer/parseInt tournamentid))))
 
 (defroutes app-routes
   (context "/tournaments" [] (defroutes tournament-routes
     (GET "/active/" [] (get-active))
+    (POST "/activate/" [tournamentid] (activate-tournament tournamentid))
     (GET "/" [] (get-tournaments))
     (POST "/" [name startdate enddate games-per-player 
                playoff-teams-per-conference] 

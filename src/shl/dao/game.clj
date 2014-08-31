@@ -60,6 +60,19 @@
   (j/query db/db 
     (s/format (get-conference-games-sql conferenceid))))
 
+(defn- get-game-sql [gameid]
+    (s/build :select :* 
+             :from [[:game :g]] 
+             :where [:= :g.id gameid]
+             :limit 1))
+
+(defn get-game [gameid]
+    (first (j/query db/db 
+       (s/format (get-game-sql))
+       :row-fn #(assoc % :playdate (str (time-utils/from-sql-date (% :playdate)))
+                         :modifieddate (str (time-utils/from-sql-date (% :modifieddate))))
+    )))
+
 (defn- get-player-games-sql [playerid]
   (s/build :select [:g.id :g.homegoals :g.awaygoals 
                     :g.overtime :g.shootout

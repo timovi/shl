@@ -19,18 +19,18 @@
     (let [userid-int (Integer/parseInt userid)
           conferenceid-int (Integer/parseInt conferenceid)
           teamid-int (Integer/parseInt teamid)]
-    (player-dao/add-player userid-int
-                           conferenceid-int
-                           teamid-int)
-    (game-service/add-games userid-int conferenceid-int)))
-  (response true))
+      (player-dao/add-player userid-int
+                             conferenceid-int
+                             teamid-int)
+      (game-service/add-games userid-int conferenceid-int)
+      (response (player-dao/get-player userid-int conferenceid-int)))))
 
 (defn delete [playerid]
   (when-not (str/blank? playerid)
     (let [playerid-int (Integer/parseInt playerid)]
       (player-dao/remove-player (Integer/parseInt playerid-int))
-      (game-dao/remove-games playerid-int)))
-  (response true))
+      (game-dao/remove-games playerid-int)
+      (response {:removed true}))))
 
 (defroutes app-routes
   (context "/players" [] (defroutes player-routes

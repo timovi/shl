@@ -12,7 +12,7 @@
                                 :enddate (time/to-sql-date enddate)
                                 :gamesperplayer games-per-player
                                 :playoffteamsperconference playoff-teams-per-conference
-                                :active true}))
+                                :active false}))
 
 (defn add-conference [name tournamentid]
   (j/insert! db/db :conference {:name name 
@@ -21,11 +21,15 @@
 (defn inactivate-tournaments []
   (j/update! db/db :tournament {:active false} ["active = ?" true]))
 
+(defn activate-tournament [tournamentid]
+  (j/update! db/db :tournament {:active true} ["id = ?" tournamentid]))
+
 (defn- get-active-tournament-sql []
     (s/build :select :* 
              :from [[:tournament :t]] 
              :where [:= :t.active true]
-             :order-by [[:t.id :desc]]))
+             :order-by [[:t.id :desc]]
+             :limit 1))
 
 (defn get-active-tournament []
   (first 
@@ -46,6 +50,34 @@
        :row-fn #(assoc % :startdate (str (time-utils/from-sql-date (% :startdate)))
                          :enddate (str (time-utils/from-sql-date (% :enddate))))
     ))
+
+(defn- get-tournament-sql [tournamentid]
+    (s/build :select :* 
+             :from [[:tournament :t]] 
+             :where [:= :t.id tournamentid]
+             :order-by [:t.id]
+             :limit 1))
+
+(defn get-tournament [tournamentid]
+    (first (j/query db/db 
+       (s/format (get-tournament-sql tournamentid))
+       :row-fn #(assoc % :startdate (str (time-utils/from-sql-date (% :startdate)))
+                         :enddate (str (time-utils/from-sql-date (% :enddate))))
+    )))
+
+(defn- get-tournament-by-name-sql [name]
+    (s/build :select :* 
+             :from [[:tournament :t]] 
+             :where [:= :t.name name]
+             :order-by [:t.id]
+             :limit 1))
+
+(defn get-tournament-by-name [name]
+    (first (j/query db/db 
+       (s/format (get-tournament-by-name-sql name))
+       :row-fn #(assoc % :startdate (str (time-utils/from-sql-date (% :startdate)))
+                         :enddate (str (time-utils/from-sql-date (% :enddate))))
+    )))
 
 (defn- get-number-of-games-per-player-sql [conferenceid]
   (s/build :select :t.gamesperplayer 
@@ -69,6 +101,19 @@
   (j/query db/db 
     (s/format (get-conferences-sql tournamentid))
     ))
+
+(defn- get-conference-sql [name tournamentid]
+  (s/build :select :* 
+           :from [[:conference :c]]
+           :where [:and [:= :c.name name]
+                        [:= :c.tournamentid tournamentid]]
+           :order-by [:c.id]
+           :limit 1))
+
+(defn get-conference [name tournamentid]
+  (first (j/query db/db 
+    (s/format (get-conference-sql name tournamentid))
+    )))
 
 (defn- get-conferenceids-sql [tournamentid]
   (s/build :select [:c.id] 

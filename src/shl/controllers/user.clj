@@ -18,8 +18,8 @@
                  (str/blank? firstname) 
                  (str/blank? lastname)
                  (str/blank? roleid))
-    (dao/add-user username firstname lastname roleid))
-  (response true))
+    (dao/add-user username firstname lastname roleid)
+    (response (dao/get-user username))))
 
 (defroutes app-routes
   (context "/users" [] (defroutes user-routes
