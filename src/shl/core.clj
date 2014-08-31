@@ -35,5 +35,5 @@
 
 (defn -main []
   (let [port (Integer/parseInt 
-               (or (System/getenv "PORT") "8080"))]
+               (or (System/getenv "SHL_API_PORT") "8080"))]
   (start port)))

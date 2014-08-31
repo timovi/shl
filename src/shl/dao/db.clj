@@ -1,11 +1,7 @@
 (ns shl.dao.db)
 
-;(def db {:subprotocol (System/getenv "DB_TYPE")
-;         :subname (System/getenv "DB_URL")
-;         :user (System/getenv "DB_USER")
-;         :password (System/getenv "DB_PASS")})
+(def db {:subprotocol (or (System/getenv "SHL_DB_TYPE") "postgresql")
+         :subname     (or (System/getenv "SHL_DB_URL")  "//localhost:5432/shl")
+         :user        (or (System/getenv "SHL_DB_USER") "shl")
+         :password    (or (System/getenv "SHL_DB_PASS") "shl")})
 
-(def db {:subprotocol "postgresql" 
-         :subname "//localhost:5432/shl" 
-         :user "shl" 
-         :password "shl"})
