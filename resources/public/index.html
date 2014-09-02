@@ -21,7 +21,7 @@
             </form>
           </div>
           <div ng-show="IsLogin()">
-            <span>Olet kirjautunut: {{user.username}}</span><a href="#" ng-click="LogOut()">Kirjaudu ulos</a>
+            <span>Olet kirjautunut: {{username}}</span><a href="#" ng-click="LogOut()">Kirjaudu ulos</a>
           </div>
             <h1>{{tournament.name}}</h1>
             <nav>
@@ -32,13 +32,14 @@
         </header>
         <div ng-show="showWrapper" class="contentWrapper">
         	<ul>
-        		<a ng-click="sarjataulukko(id,conferenceName)" href="#"><li class="tab">Sarjataulukko</li></a>
-        		<a ng-click="sarjaohjelma(id)" href="#"><li class="tab">Sarjaohjelma</li></a>
-            <a ng-show="IsLogin()" ng-click="sarjaohjelma(2)" href="#"><li class="tab">Oma sarjaohjelma</li></a>
+        		<a ng-click="sarjataulukko(conferenceid,conferenceName)" href="#"><li class="tab">Sarjataulukko</li></a>
+        		<a ng-click="sarjaohjelma(conferenceid)" href="#"><li class="tab">Sarjaohjelma</li></a>
+            <!--<a ng-show="IsLogin()" ng-click="sarjaohjelma()" href="#"><li class="tab">Oma sarjaohjelma</li></a>-->
+            <a ng-show="user.roleid === 1" target="_blank" href="/test.html"><li class="tab">Hallinta</li></a>
         	</ul>
         	<div class="content">
         		<div class="taulukko" ng-show="showStandings">
-                    <h2>{{conferenceName}}</h2>
+                    <h2>{{conferenceName}} -sarjataulukko</h2>
                     <table>
                     <tr>
                         <th>Joukkue</th>
@@ -57,7 +58,7 @@
                     </table>
         		</div>
         		<div ng-show="showSchedule" class="taulukko">
-        			<h2>{{scheduleHeader}}</h2>
+        			<h2>{{conferenceName}} -sarjaohjelma</h2>
                     <table>
                     <tr>
                         <th>Pelinnumero</th>
@@ -68,20 +69,29 @@
                         <th>Kotijoukkuemaalit</th>
                         <th></th>
                         <th>Vierasjoukkuemaalit</th>
+                        <th>Jatkoaika</th>
+                        <th>RL-kisa</th>
                     </tr>
                     <tr ng-repeat="(rowIndex, row) in schedule">
                           <td>{{row.id}}</td>
-                          <td>{{row.date}}
-                          <td>{{row.hometeam}}</td>
+                          <input type="hidden" ng-model="row.id" />
+                          <td ng-show="Read(rowIndex)">{{row.playdate}}</td>
+                          <td ng-hide="Read(rowIndex)"><input type="datetime" name="input" ng-model="row.playdate" /></td>
+                          <td>{{row.homefirstname}} "{{row.hometeam}}" {{row.homelastname}}</td>
                           <td>-</td>
-                          <td>{{row.awayteam}}</td>
-                          <td ng-show="Read(rowIndex)">{{row.homegoal}}</td>
-                          <td ng-hide="Read(rowIndex)"><input type="number" name="input" min="0" ng-model="row.homegoal" /></td>
+                          <td>{{row.awayfirstname}} "{{row.awayteam}}" {{row.awaylastname}}</td>
+                          <td ng-show="Read(rowIndex)">{{row.homegoals}}</td>
+                          <td ng-hide="Read(rowIndex)"><input type="number" name="input" min="0" ng-model="row.homegoals" /></td>
                           <td>-</td>
-                          <td ng-show="Read(rowIndex)">{{row.awaygoal}}</td>
-                          <td ng-hide="Read(rowIndex)"><input type="number" name="input" min="0" ng-model="row.awaygoal" /></td>
-                          <td><a ng-show="Read(rowIndex)" ng-click="changeToInput(rowIndex)"  href="#">Muokkaa</a>
-                          <td><a ng-hide="Read(rowIndex)" ng-click="Save(rowIndex, row.homegoal, row.awaygoal)"  href="#">Tallenna</a>
+                          <td ng-show="Read(rowIndex)">{{row.awaygoals}}</td>
+                          <td ng-hide="Read(rowIndex)"><input type="number" name="input" min="0" ng-model="row.awaygoals" /></td>
+                          <td ng-show="Read(rowIndex)">{{row.overtime}}</td>
+                          <td ng-hide="Read(rowIndex)"><input type="checkbox" name="input" ng-model="row.overtime" /></td>
+                          <td ng-show="Read(rowIndex)">{{row.shootout}}</td>
+                          <td ng-hide="Read(rowIndex)"><input type="checkbox" name="input" ng-model="row.shootout" /></td>
+                          <td><a ng-show="Read(rowIndex)" ng-click="changeToInput(rowIndex)"  href="#">Muokkaa</a></td>
+                          <td><a ng-hide="Read(rowIndex)" ng-click="Update(row)" href="#" >Tallenna</a></td>
+                        </form>
                     </tr>
                     </table>
         		</div>	

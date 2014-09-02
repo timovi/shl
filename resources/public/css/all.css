@@ -32,6 +32,8 @@ nav li{
 	margin-bottom: 10px;
 	text-align: center;
 	font-size: 2em;
+	padding-bottom: .6em;
+	padding-top: .6em;
 }
 
 nav a, .tab a{
@@ -52,9 +54,9 @@ nav a, .tab a{
 
 header, .contentWrapper, footer{
 	margin: 0 auto;
-	max-width: 900px;
-	padding-left: 15px;
-	padding-right: 15px;
+	/* max-width: 900px; */
+	padding-left:30px;
+	padding-right:30px;
 }
 
 header, footer
