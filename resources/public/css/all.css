@@ -23,12 +23,16 @@ table td, table th
 	padding: 10px;
 }
 
-
 table th {
 	background: #ececec;
 	font-weight: bold;
 	padding: 4px;
 }
+
+table tr {
+	margin: 4px 0;
+}
+
 nav li {
 	display: inline;
 }
@@ -149,3 +153,41 @@ header h1 {
 	display: inline;
 	float: left;
 }
+
+.team-logo {
+	padding-left: 50px;
+	background-size: 40px 3000px;
+	background-repeat: no-repeat;
+	background-image: url(../images/logos.svg);
+}
+
+.anaheim-ducks 		{		background-position: 4px 0px;		}
+.arizona-coyotes 	{		background-position: 4px -100px; 	}
+.boston-bruins	 	{		background-position: 4px -200px; 	}
+.buffalo-sabres 	{		background-position: 4px -300px; 	}
+.calgary-flames 	{		background-position: 4px -400px; 	}
+.carolina-hurricanes{		background-position: 4px -500px; 	}
+.chicago-blackhawks	{		background-position: 4px -600px; 	}
+.colorado-avalanche	{		background-position: 0px -700px; 	}
+.columbus-blue-jackets{		background-position: 0px -800px; 	}
+.dallas-stars	 	{		background-position: 0px -900px; 	}
+.detroit-red-wings 	{		background-position: 0px -1000px; 	}
+.florida-panthers 	{		background-position: 0px -1100px; 	}
+.edmonton-oilers 	{		background-position: 0px -1200px; 	}
+.new-york-islanders	{		background-position: 0px -1300px; 	}
+.los-angeles-kings 	{		background-position: 0px -1400px; 	}
+.minnesota-wild 	{		background-position: 0px -1500px; 	}
+.montreal-canadiens	{		background-position: 0px -1600px; 	}
+.nashville-predators{		background-position: 0px -1700px; 	}
+.new-jersey-devils 	{		background-position: 0px -1800px; 	}
+.new-york-rangers 	{		background-position: 0px -1900px;	}
+.ottawa-senators 	{		background-position: 0px -2000px; 	}
+.philadelphia-flyers{		background-position: 0px -2100px; 	}
+.pittsburgh-penguins{		background-position: 0px -2200px; 	}
+.san-jose-sharks 	{		background-position: 0px -2300px; 	}
+.st-louis-blues 	{		background-position: 0px -2400px; 	}
+.tampa-bay-lightning{		background-position: 0px -2500px; 	}
+.toronto-maple-leafs{		background-position: 0px -2600px; 	}
+.vancouver-canucks 	{		background-position: 0px -2700px; 	}
+.washington-capitals{		background-position: 0px -2800px; 	}
+.winnipeg-jets 		{		background-position: 0px -2900px; 	}
