@@ -11,7 +11,7 @@
     <script type="text/javascript" src="./js/services.js"></script>
     <script type="text/javascript" src="./js/controllers.js"></script>
 </head>
-<body ng-controller="shlCtrl">
+<body ng-controller="shlCtrl" ng-init="init()">
     
 <header>
   <div class="login">
@@ -93,7 +93,7 @@
                 <td ng-hide="Read(rowIndex)"><input type="checkbox" name="input" ng-model="row.overtime" /></td>
                 <td ng-show="Read(rowIndex)">{{row.shootout}}</td>
                 <td ng-hide="Read(rowIndex)"><input type="checkbox" name="input" ng-model="row.shootout" /></td>
-                <td><a ng-show="Read(rowIndex)" ng-click="changeToInput(rowIndex, row)"  href="#">Muokkaa</a></td>
+                <td><a ng-show="Read(rowIndex) && logged" ng-click="changeToInput(rowIndex, row)"  href="#">Muokkaa</a></td>
                 <td><a ng-hide="Read(rowIndex)" ng-click="Update(row, playdate)" href="#" >Tallenna</a></td>
               </form>
           </tr>
