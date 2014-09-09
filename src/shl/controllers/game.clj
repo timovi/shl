@@ -29,7 +29,7 @@
 (defroutes app-routes
   (context "/games" [] (defroutes game-routes
     (GET ["/conference/:id/" :id #"[0-9]+"] [id] (get-conference-games id))
-    (POST "/" [gameid home-goals away-goals 
+    (POST "/" [gameid homegoals awaygoals 
               overtime shootout playdate] 
-      (update gameid home-goals away-goals overtime shootout playdate)))))
+      (update gameid homegoals awaygoals overtime shootout playdate)))))
 
