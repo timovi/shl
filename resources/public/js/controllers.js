@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', 'GetConferences', 'GetUser', 'GetGames', 'UpdateGame', 
-  function ($scope, GetActiveTournaments, GetConferences, GetUser, GetGames, UpdateGame) {
+angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', 'GetConferences', 'GetUser', 'GetGames', 'UpdateGame', '$filter', 
+  function ($scope, GetActiveTournaments, GetConferences, GetUser, GetGames, UpdateGame, $filter) {
 
   $scope.Read = true;
   $scope.logged = false;
@@ -41,9 +41,15 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
   }
 
 
-  $scope.changeToInput = function(id)
+  $scope.changeToInput = function(id, row)
   {
+    $scope.playdate = new Date();
     $scope.EditItemId = id;
+    if(row.playdate !== null)
+    {
+      $scope.playdate = row.playdate;
+    }
+    $scope.playdate = $filter('date')($scope.playdate, "dd.MM.yyyy");  // for type="date" binding
   }
 
   $scope.Update = function(row)
