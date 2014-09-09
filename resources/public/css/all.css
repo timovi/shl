@@ -23,6 +23,12 @@ table td, table th
 	padding: 10px;
 }
 
+
+table th {
+	background: #ececec;
+	font-weight: bold;
+	padding: 4px;
+}
 nav li {
 	display: inline;
 }
@@ -40,8 +46,6 @@ nav a, .tab a{
 header, .contentWrapper, footer{
 	margin: 0 auto;
 	/* max-width: 900px; */
-	padding-left:30px;
-	padding-right:30px;
 }
 
 .contentWrapper ul
@@ -51,6 +55,8 @@ header, .contentWrapper, footer{
 
 .content
 {
+	padding-left:30px;
+	padding-right:30px;
 	min-height: 300px;
 }
 
@@ -64,26 +70,33 @@ header, .contentWrapper, footer{
 	float: left;
 }
 
+.tabs {
+	background: #272727;
+	text-transform: uppercase;
+	display: block;
+	padding-left: 0px;
+	margin-bottom: 0px;
+	line-height: 1;
+}
+
+.tabs ul {
+	border-right: 1px solid black;
+}
+
+.tabs ul li {
+	border-right: 1px solid #414141;
+	border-left: 1px solid black;
+}
 .tab
 {
 	float: left;
-	background: #f7f4f4;
-	font-size: 1em;
-	overflow: auto;
-	margin-right: 10px;
-	padding: 10px 10px 10px 10px;
-	-webkit-border-top-left-radius: 10px;
-	-webkit-border-top-right-radius: 10px;
-	-moz-border-radius-topleft: 10px;
-	-moz-border-radius-topright: 10px;
-	border-top-left-radius: 10px;
-	border-top-right-radius: 10px;
-	
+	padding: 14px 30px;	
+	color: white;
 }
 
-.tab a:hover
+.tab:hover
 {
-	color:#e52a82;
+	background: #4c4c4c;
 }
 
 .ohjelma
@@ -95,6 +108,7 @@ header, .contentWrapper, footer{
 	background: white;
 	margin: 80px 40px 40px 40px;
 	box-shadow: 0px 5px 20px rgba(0,0,0,0.8);
+	padding-bottom: 40px;
 }
 
 header {
@@ -104,6 +118,24 @@ header {
 	left: 0px;
 	color: white;
 	width: 100%;
+}
+
+footer {
+	color: white;
+	text-align: center;
+	background: #2b2b2b;
+	float: right;
+	margin: 40px 20px 0px 0px;
+	color: #818181;
+	font-size: 10px;
+	text-transform: uppercase;
+	padding: 8px 20px;
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
 }
 
 .login {
