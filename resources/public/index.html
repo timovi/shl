@@ -17,8 +17,9 @@
   <div class="login">
     <div ng-hide="IsLogin()">
       <form ng-submit="login()" method="post">
-        <label>Käyttäjätunnus:<input type="text" ng-model="username" name="username">
-        <input type="submit" id="login" value="Kirjaudu">
+        <label>Käyttäjätunnus:</label>
+        <input type="text" ng-model="username" name="username">
+        <input class="login-submit" type="submit" id="login" value="Kirjaudu" />
       </form>
     </div>
   <!--  <div ng-show="IsLogin()">
