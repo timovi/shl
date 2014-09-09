@@ -12,8 +12,9 @@
     <script type="text/javascript" src="./js/controllers.js"></script>
 </head>
 <body ng-controller="shlCtrl">
-    <div class="container">
-        <header>
+    
+      <header>
+        <div class="login">
           <div ng-hide="IsLogin()">
             <form ng-submit="login()" method="post">
               <label>Käyttäjätunnus:<input type="text" ng-model="username" name="username">
@@ -23,13 +24,17 @@
           <div ng-show="IsLogin()">
             <span>Olet kirjautunut: {{username}}</span><a href="#" ng-click="LogOut()">Kirjaudu ulos</a>
           </div>
-            <h1>{{tournament.name}}</h1>
-            <nav>
-                <ul>
-                    <a ng-repeat="conf in conferences" ng-click="sarjataulukko(conf.id, conf.name)" href="#"><li class="south">{{conf.name}}</li></a>
-                </ul>
-            </nav>
-        </header>
+        </div>
+        <h1>{{tournament.name}}</h1>
+          <nav>
+              <ul>
+                  <a ng-repeat="conf in conferences" ng-click="sarjataulukko(conf.id, conf.name)" href="#">
+                    <li class="conference">{{conf.name}}</li></a>
+              </ul>
+          </nav>
+      </header>
+
+      <div class="container">
         <div ng-show="showWrapper" class="contentWrapper">
         	<ul>
         		<a ng-click="sarjataulukko(conferenceid,conferenceName)" href="#"><li class="tab">Sarjataulukko</li></a>

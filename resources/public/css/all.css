@@ -2,11 +2,8 @@ body{
 	font-family: 'Titillium Web', sans-serif;
 	padding: 0;
 	margin:0;
-}
-
-h1{
-	font-size: 3em;
-
+	background: url(../images/bg.jpg);
+	background-size: cover;
 }
 
 ul,li{
@@ -21,31 +18,14 @@ table td, table th
 	padding: 10px;
 }
 
-nav
-{
-	width: 100%;
-	margin: 0 auto;
-}
-
-nav li{
-	background: #f7f4f4;	
-	margin-bottom: 10px;
-	text-align: center;
-	font-size: 2em;
-	padding-bottom: .6em;
-	padding-top: .6em;
+nav li {
+	display: inline;
 }
 
 nav a, .tab a{
 	color: #6f7074;
 	text-decoration: none;
 }
-.north:hover, .south:hover
-{
-	color: #fff;
-}
-.north:hover{background: #e52a82;}
-.south:hover{background: #00a9a7;}
 
 .container, .contentWrapper
 {
@@ -57,11 +37,6 @@ header, .contentWrapper, footer{
 	/* max-width: 900px; */
 	padding-left:30px;
 	padding-right:30px;
-}
-
-header, footer
-{
-	text-align: center;
 }
 
 .contentWrapper ul
@@ -109,4 +84,29 @@ header, footer
 .ohjelma
 {
 	
+}
+
+.container {
+	background: white;
+	margin: 80px 40px 40px 40px;
+	box-shadow: 0px 5px 20px rgba(0,0,0,0.8);
+}
+
+header {
+	background: #191919;
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	color: white;
+	width: 100%;
+}
+
+.login {
+	float: right;
+}
+
+header h1 {
+	font-size: 14px;
+	display: inline;
+	float: left;
 }
