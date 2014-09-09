@@ -49,9 +49,11 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
   $scope.Update = function(row)
   {
     $scope.EditItemId = false;
-    updateGame(row, function(games)
+    updateGame(row, function(callback)
     {
+      getGames($scope.conferenceid, function(games){
       $scope.schedule = games;
+    });
     });
   }
 
