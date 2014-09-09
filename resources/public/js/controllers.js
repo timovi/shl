@@ -52,10 +52,10 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
     $scope.playdate = $filter('date')($scope.playdate, "dd.MM.yyyy");  // for type="date" binding
   }
 
-  $scope.Update = function(row)
+  $scope.Update = function(row, playdate)
   {
     $scope.EditItemId = false;
-    updateGame(row, function(callback)
+    updateGame(row, playdate, function(callback)
     {
       getGames($scope.conferenceid, function(games){
       $scope.schedule = games;
@@ -117,14 +117,14 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
         }, callback);
     };
 
-    var updateGame = function(row,callback) {
+    var updateGame = function(row, playdate, callback) {
        return UpdateGame.save({
         id:row.id,
         homegoals: row.homegoals,
         awaygoals: row.awaygoals,
         overtime:row.overtime,
         shootout:row.shootout,
-        playdate:row.playdate
+        playdate:playdate
        }, callback);
     };
 
