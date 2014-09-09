@@ -28,7 +28,8 @@
 (def application
   (-> (handler/site app-routes)
       (middleware/wrap-json-body)
-      (middleware/wrap-json-response)))
+      (middleware/wrap-json-response)
+      (middleware/wrap-json-params)))
 
 (defn start [port]
   (run-jetty #'application {:port port :join? false}))
