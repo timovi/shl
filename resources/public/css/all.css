@@ -12,9 +12,14 @@ ul,li{
 	padding:0;
 }
 
+table {
+	width: 100%;
+	font-size: 12px;
+}
+
 table td, table th
 {
-	text-align: center;
+	text-align: left;
 	padding: 10px;
 }
 
@@ -51,7 +56,7 @@ header, .contentWrapper, footer{
 
 .content h2
 {
-	color:#e52a82;
+	color:#7c7c7c;
 }
 
 .content ul li
@@ -102,7 +107,9 @@ header {
 }
 
 .login {
-	float: right;
+	position: absolute;
+	right: 40px;
+	top: 20px;
 }
 
 header h1 {
