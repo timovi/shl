@@ -111,7 +111,12 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
 
     var updateGame = function(row,callback) {
        return UpdateGame.save({
-        row:row
+        id:row.id,
+        homegoals: row.homegoals,
+        awaygoals: row.awaygoals,
+        overtime:row.overtime,
+        shootout:row.shootout,
+        playdate:row.playdate
        }, callback);
     };
 

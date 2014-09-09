@@ -61,7 +61,6 @@
         			<h2>{{conferenceName}} -sarjaohjelma</h2>
                     <table>
                     <tr>
-                        <th>Pelinnumero</th>
                         <th>Päivämäärä</th>
                         <th>Kotijoukkue</th>
                         <th></th>
@@ -73,8 +72,6 @@
                         <th>RL-kisa</th>
                     </tr>
                     <tr ng-repeat="(rowIndex, row) in schedule">
-                          <td>{{row.id}}</td>
-                          <input type="hidden" ng-model="row.id" />
                           <td ng-show="Read(rowIndex)">{{row.playdate}}</td>
                           <td ng-hide="Read(rowIndex)"><input type="datetime" name="input" ng-model="row.playdate" /></td>
                           <td>{{row.homefirstname}} "{{row.hometeam}}" {{row.homelastname}}</td>
