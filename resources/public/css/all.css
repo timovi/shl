@@ -33,11 +33,50 @@ table tr {
 	margin: 4px 0;
 }
 
+nav {
+	float: left;
+	margin-left: 20px;
+}
+
 nav li {
 	display: inline;
 }
 
-nav a, .tab a{
+nav a {
+	padding: 8px 12px;
+	display: inline-block;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: rgb(54, 215, 225);
+}
+
+nav a.selected {
+	position: relative;
+	background: rgb(54, 215, 225);
+	color: black;
+}
+
+nav a.selected:after {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(54, 215, 225, 0);
+	border-top-color: rgb(54, 215, 225);
+	border-width: 8px;
+	margin-left: -8px;
+}
+
+nav a:hover {
+	background: rgb(0, 191, 203);
+	color: black;
+}
+
+.tab a {
 	color: #6f7074;
 	text-decoration: none;
 }
@@ -116,7 +155,7 @@ header, .contentWrapper, footer{
 }
 
 header {
-	background: #191919;
+	background: black;
 	position: fixed;
 	top: 0px;
 	left: 0px;
@@ -124,34 +163,47 @@ header {
 	width: 100%;
 }
 
-footer {
-	color: white;
-	text-align: center;
-	background: #2b2b2b;
-	float: right;
-	margin: 40px 20px 0px 0px;
-	color: #818181;
-	font-size: 10px;
-	text-transform: uppercase;
-	padding: 8px 20px;
-	-webkit-border-bottom-right-radius: 10px;
-	-webkit-border-bottom-left-radius: 10px;
-	-moz-border-radius-bottomright: 10px;
-	-moz-border-radius-bottomleft: 10px;
-	border-bottom-right-radius: 10px;
-	border-bottom-left-radius: 10px;
+.shl-logo {
+	position: absolute;
+	left: 20px;
+	top: 10px;
 }
 
 .login {
 	position: absolute;
 	right: 40px;
-	top: 20px;
+	top: 6px;
+}
+
+.login label {
+	font-size: 13px;
+	color: #747474;
+}
+
+.login input[type=text] {
+	border: 0px;
+	background: #3e3e3e;
+	padding: 6px;
+	color: white;
+	margin-left: 5px;
+	margin-right: 0px;
+}
+
+.login input[type=submit] {
+	background: rgb(54, 215, 225);
+	border: 0px;
+	color: black;
+	padding: 6px 10px;
+	margin-left: 0px;
+	text-transform: uppercase;
 }
 
 header h1 {
 	font-size: 14px;
 	display: inline;
 	float: left;
+	margin-left: 90px;
+	text-transform: uppercase;
 }
 
 .team-logo {
@@ -191,3 +243,21 @@ header h1 {
 .vancouver-canucks 	{		background-position: 0px -2700px; 	}
 .washington-capitals{		background-position: 0px -2800px; 	}
 .winnipeg-jets 		{		background-position: 0px -2900px; 	}
+
+footer {
+	color: white;
+	text-align: center;
+	background: #2b2b2b;
+	float: right;
+	margin: 40px 20px 0px 0px;
+	color: #818181;
+	font-size: 10px;
+	text-transform: uppercase;
+	padding: 8px 20px;
+	-webkit-border-bottom-right-radius: 10px;
+	-webkit-border-bottom-left-radius: 10px;
+	-moz-border-radius-bottomright: 10px;
+	-moz-border-radius-bottomleft: 10px;
+	border-bottom-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
