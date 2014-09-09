@@ -79,8 +79,8 @@
               <th>RL-kisa</th>
           </tr>
           <tr ng-repeat="(rowIndex, row) in schedule">
-                <td ng-show="Read(rowIndex)">{{row.playdate}}</td>
-                <td ng-hide="Read(rowIndex)"><input type="datetime" name="input" ng-model="row.playdate" /></td>
+                <td ng-show="Read(rowIndex)">{{row.playdate | date:'dd.MM.yyyy'}}</td>
+                <td ng-hide="Read(rowIndex)"><input type="text" ng-model="row.playdate" /></td>
                 <td>{{row.homefirstname}} "{{row.hometeam}}" {{row.homelastname}}</td>
                 <td>-</td>
                 <td>{{row.awayfirstname}} "{{row.awayteam}}" {{row.awaylastname}}</td>
