@@ -21,8 +21,13 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
   {
     getUser(this.username, function(user){
       $scope.user = user;
+      if(user.role !== undefined)
+      {
+        $scope.logged = true;
+      }
     });
-    $scope.logged = true;
+
+    
     
   }
 
