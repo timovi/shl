@@ -1,9 +1,10 @@
 (ns shl.core
-  (:use [compojure.core :only (defroutes)]
+  (:use [compojure.core]
         [ring.adapter.jetty :as ring])
   (:require [compojure.route :as route]
             [compojure.handler :as handler]
             [ring.middleware.json :as middleware]
+            [ring.util.response :as resp]
             [shl.controllers.game :as game]
             [shl.controllers.player :as player]
             [shl.controllers.role :as role]
@@ -14,6 +15,7 @@
             [shl.controllers.user :as user]))
 
 (defroutes app-routes
+  (GET "/" [] (resp/redirect "/index.html"))
   game/app-routes
   player/app-routes
   role/app-routes
