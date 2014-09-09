@@ -9,19 +9,10 @@
             [shl.dao.game :as dao]))
 
 (defn update [gameid home-goals away-goals overtime shootout playdate]
-  (when-not (and (str/blank? gameid)
-                 (str/blank? home-goals)
-                 (str/blank? away-goals)
-                 (str/blank? overtime)
-                 (str/blank? shootout)
-                 (str/blank? playdate))
-    (dao/update-game (Integer/parseInt gameid)
-                     (Integer/parseInt home-goals)
-                     (Integer/parseInt away-goals)
-                     (Boolean/valueOf overtime)
-                     (Boolean/valueOf shootout)
-                     (time/parse time-utils/formatter playdate)))
-  (response (dao/get-game (Integer/parseInt gameid))))
+  (when-not (nil? playdate)
+    (dao/update-game gameid home-goals away-goals overtime shootout
+                    (time/parse time-utils/formatter playdate)))
+  (response (dao/get-game gameid)))
 
 (defn get-conference-games [conferenceid]
   (response (dao/get-conference-games (Integer/parseInt conferenceid))))
@@ -29,7 +20,7 @@
 (defroutes app-routes
   (context "/games" [] (defroutes game-routes
     (GET ["/conference/:id/" :id #"[0-9]+"] [id] (get-conference-games id))
-    (POST "/" [gameid homegoals awaygoals 
+    (POST "/" [id homegoals awaygoals 
               overtime shootout playdate] 
-      (update gameid homegoals awaygoals overtime shootout playdate)))))
+      (update id homegoals awaygoals overtime shootout playdate)))))
 
