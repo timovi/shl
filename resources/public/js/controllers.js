@@ -1,5 +1,6 @@
 'use strict';
 
+
 angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', 'GetConferences', 'GetUser', 'GetGames', 'UpdateGame', '$filter', 
   function ($scope, GetActiveTournaments, GetConferences, GetUser, GetGames, UpdateGame, $filter) {
 
@@ -138,6 +139,15 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
     };
 
 }]);
+
+//Filters
+
+angular.module("shl").filter('removeSpacesThenLowercase', function () {
+        return function (text) {
+        var str = text.replace(/\s+/g, '-');
+        return str.toLowerCase();
+        };
+})
 
 
 

@@ -74,18 +74,16 @@
               <th>Kotijoukkue</th>
               <th></th>
               <th>Vierasjoukkue</th>
-              <th>Kotijoukkuemaalit</th>
-              <th></th>
-              <th>Vierasjoukkuemaalit</th>
+              <th colspan="3">Tulos</th>
               <th>Jatkoaika</th>
               <th>RL-kisa</th>
           </tr>
-          <tr ng-repeat="(rowIndex, row) in schedule">
+          <tr ng-repeat="(rowIndex, row) in schedule" ng-class="{'not-played': row.playdate === null}">
                 <td ng-show="Read(rowIndex)">{{row.playdate | date:'dd.MM.yyyy'}}</td>
                 <td ng-hide="Read(rowIndex)"><input ng-model="playdate" type="text" /></td>
-                <td>{{row.homefirstname}} "{{row.hometeam}}" {{row.homelastname}}</td>
+                <td class="team-logo {{row.hometeam | removeSpacesThenLowercase}}">{{row.homefirstname}} {{row.homelastname}}</td>
                 <td>-</td>
-                <td>{{row.awayfirstname}} "{{row.awayteam}}" {{row.awaylastname}}</td>
+                <td class="team-logo {{row.awayteam | removeSpacesThenLowercase}}">{{row.awayfirstname}} {{row.awaylastname}}</td>
                 <td ng-show="Read(rowIndex)">{{row.homegoals}}</td>
                 <td ng-hide="Read(rowIndex)"><input type="number" name="input" min="0" ng-model="row.homegoals" /></td>
                 <td>-</td>
