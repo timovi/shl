@@ -7,8 +7,12 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
   $scope.Read = true;
   $scope.logged = false;
 
-  $scope.init = function()
+  $scope.login = function()
   {
+    getUser(this.username, function(user){
+      $scope.user = user;
+    });
+    $scope.logged = true;
     getTournament(function(tournament){
       $scope.tournament = tournament;
       getConferences(tournament.id, function(conferences){
@@ -18,19 +22,6 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
   }
 
 
-  $scope.login = function()
-  {
-    getUser(this.username, function(user){
-      $scope.user = user;
-      if(user.role !== undefined)
-      {
-        $scope.logged = true;
-      }
-    });
-
-    
-    
-  }
 
   $scope.IsLogin = function()
   {

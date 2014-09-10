@@ -11,7 +11,7 @@
     <script type="text/javascript" src="./js/services.js"></script>
     <script type="text/javascript" src="./js/controllers.js"></script>
 </head>
-<body ng-controller="shlCtrl" ng-init="init()">
+<body ng-controller="shlCtrl">
     
 <header>
   <div class="login">
@@ -43,7 +43,7 @@
       		<a ng-click="sarjataulukko(conferenceid,conferenceName)" href="#"><li class="tab">Sarjataulukko</li></a>
       		<a ng-click="sarjaohjelma(conferenceid)" href="#"><li class="tab">Sarjaohjelma</li></a>
           <!--<a ng-show="IsLogin()" ng-click="sarjaohjelma()" href="#"><li class="tab">Oma sarjaohjelma</li></a>-->
-          <a ng-show="user.roleid === 1 && logged" target="_blank" href="/test.html"><li class="tab">Hallinta</li></a>
+          <a ng-show="user.roleid === 1" target="_blank" href="/test.html"><li class="tab">Hallinta</li></a>
     	</ul>
     </div>
   	<div class="content">
@@ -93,7 +93,7 @@
                 <td ng-hide="Read(rowIndex)"><input type="checkbox" name="input" ng-model="row.overtime" /></td>
                 <td ng-show="Read(rowIndex)">{{row.shootout}}</td>
                 <td ng-hide="Read(rowIndex)"><input type="checkbox" name="input" ng-model="row.shootout" /></td>
-                <td><a ng-show="Read(rowIndex) && logged" ng-click="changeToInput(rowIndex, row)"  href="#">Muokkaa</a></td>
+                <td><a ng-show="Read(rowIndex)" ng-click="changeToInput(rowIndex, row)"  href="#">Muokkaa</a></td>
                 <td><a ng-hide="Read(rowIndex)" ng-click="Update(row, playdate)" href="#" >Tallenna</a></td>
               </form>
           </tr>
