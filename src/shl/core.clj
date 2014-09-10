@@ -12,20 +12,22 @@
             [shl.controllers.standings :as standings]
             [shl.controllers.team :as team]
             [shl.controllers.tournament :as tournament]
-            [shl.controllers.user :as user]))
+            [shl.controllers.user :as user])
+  (:gen-class))
 
 (defroutes app-routes
-  (GET "/" [] (resp/redirect "/index.html"))
-  game/app-routes
-  player/app-routes
-  role/app-routes
-  statistics/app-routes
-  standings/app-routes
-  team/app-routes
-  tournament/app-routes
-  user/app-routes
-  (route/resources "/")
-  (route/not-found "Not Found"))
+  (context "/shl" []
+     (GET "/" [] (resp/redirect "index.html"))
+     game/app-routes
+     player/app-routes
+     role/app-routes
+     statistics/app-routes
+     standings/app-routes
+     team/app-routes
+     tournament/app-routes
+     user/app-routes
+     (route/resources "/")
+     (route/not-found "Not Found")))
 
 (def application
   (-> (handler/site app-routes)
