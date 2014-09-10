@@ -1,23 +1,32 @@
 'use strict';
 
+
 angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', 'GetConferences', 'GetUser', 'GetGames', 'UpdateGame', '$filter', 
   function ($scope, GetActiveTournaments, GetConferences, GetUser, GetGames, UpdateGame, $filter) {
 
   $scope.Read = true;
   $scope.logged = false;
 
-  $scope.login = function()
+  $scope.init = function()
   {
-    getUser(this.username, function(user){
-      $scope.user = user;
-    });
-    $scope.logged = true;
     getTournament(function(tournament){
       $scope.tournament = tournament;
       getConferences(tournament.id, function(conferences){
       $scope.conferences = conferences;
     });
     });
+  }
+
+
+  $scope.login = function()
+  {
+    getUser(this.username, function(user){
+      $scope.user = user;
+      if(user.role !== undefined)
+      {
+        $scope.logged = true;
+      }
+    }); 
   }
 
 
@@ -129,6 +138,15 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
     };
 
 }]);
+
+//Filters
+
+angular.module("shl").filter('removeSpacesThenLowercase', function () {
+        return function (text) {
+        var str = text.replace(/\s+/g, '-');
+        return str.toLowerCase();
+        };
+})
 
 
 
