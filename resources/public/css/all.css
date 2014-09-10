@@ -33,6 +33,15 @@ table tr {
 	margin: 4px 0;
 }
 
+table tr td {
+	border-bottom: 1px solid #eee;
+
+}
+
+tr.not-played .team-logo {
+	opacity: 0.5;
+}
+
 nav {
 	float: left;
 	margin-left: 20px;
