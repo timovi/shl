@@ -22,8 +22,8 @@
         <input class="login-submit" type="submit" id="login" value="Kirjaudu" />
       </form>
     </div>
-    <div ng-show="IsLogin()">
-      <span>Olet kirjautunut: {{username}}</span><a href="#" ng-click="LogOut()">Kirjaudu ulos</a>
+    <div ng-show="IsLogin()" class="logged-in">
+      <span>Olet kirjautunut: {{username}}</span>&nbsp;&nbsp;<span class="divider">|</span>&nbsp;&nbsp; <a href="#" ng-click="LogOut()">Kirjaudu ulos</a>
     </div> 
   </div>
   <img src="images/shl-logo.png" alt="SHL" class="shl-logo" />
@@ -77,6 +77,7 @@
               <th colspan="3">Tulos</th>
               <th>Jatkoaika</th>
               <th>RL-kisa</th>
+              <th ng-show="logged" class="tools-header"></th>
           </tr>
           <tr ng-repeat="(rowIndex, row) in schedule" ng-class="{'not-played': row.playdate === null}">
                 <td ng-show="Read(rowIndex)">{{row.playdate | date:'dd.MM.yyyy'}}</td>
@@ -93,8 +94,8 @@
                 <td ng-hide="Read(rowIndex)"><input type="checkbox" name="input" ng-model="row.overtime" /></td>
                 <td ng-show="Read(rowIndex)" class="checkmark-{{row.shootout}}"></td>
                 <td ng-hide="Read(rowIndex)"><input type="checkbox" name="input" ng-model="row.shootout" /></td>
-                <td><a ng-show="Read(rowIndex) && logged" ng-click="changeToInput(rowIndex, row)"  href="#">Muokkaa</a></td>
-                <td><a ng-hide="Read(rowIndex)" ng-click="Update(row, playdate)" href="#" >Tallenna</a></td>
+                <td><a ng-show="Read(rowIndex) && logged" ng-click="changeToInput(rowIndex, row)"  href="#" class="link-button modify">Muokkaa</a>
+                <a ng-hide="Read(rowIndex)" ng-click="Update(row, playdate)" href="#" class="link-button save" >Tallenna</a></td>
               </form>
           </tr>
         </table>
