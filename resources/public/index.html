@@ -89,9 +89,9 @@
                 <td>-</td>
                 <td ng-show="Read(rowIndex)">{{row.awaygoals}}</td>
                 <td ng-hide="Read(rowIndex)"><input type="number" name="input" min="0" ng-model="row.awaygoals" /></td>
-                <td ng-show="Read(rowIndex)">{{row.overtime}}</td>
+                <td ng-show="Read(rowIndex)" class="checkmark-{{row.overtime}}"></td>
                 <td ng-hide="Read(rowIndex)"><input type="checkbox" name="input" ng-model="row.overtime" /></td>
-                <td ng-show="Read(rowIndex)">{{row.shootout}}</td>
+                <td ng-show="Read(rowIndex)" class="checkmark-{{row.shootout}}"></td>
                 <td ng-hide="Read(rowIndex)"><input type="checkbox" name="input" ng-model="row.shootout" /></td>
                 <td><a ng-show="Read(rowIndex) && logged" ng-click="changeToInput(rowIndex, row)"  href="#">Muokkaa</a></td>
                 <td><a ng-hide="Read(rowIndex)" ng-click="Update(row, playdate)" href="#" >Tallenna</a></td>
