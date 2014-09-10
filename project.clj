@@ -1,6 +1,6 @@
 (defproject shl "0.1.0-SNAPSHOT"
   :description "Solita Hockey League Scheduler"
-  :url "https://bitbucket.org/sleinonen/shl"
+  :url "https://github.com/timovi/shl"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [[org.clojure/clojure "1.5.1"]
@@ -12,4 +12,6 @@
                  [compojure "1.1.3"]
                  [org.clojure/data.json "0.2.3"]
                  [clj-time "0.6.0"]]
-  :main shl.core)
+  :main ^:skip-aot shl.core
+  :uberjar-name "shl.jar"
+  :profiles {:uberjar {:aot :all}})
