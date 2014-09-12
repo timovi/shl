@@ -35,11 +35,45 @@ table tr {
 
 table tr td {
 	border-bottom: 1px solid #eee;
-
 }
 
 tr.not-played .team-logo {
 	opacity: 0.5;
+}
+
+th.tools-header {
+	width: 85px;
+}
+
+.divider {
+	color: #757575;
+}
+
+.link-button {
+	display: inline-block;
+	text-decoration: none;
+	padding: 6px 12px;
+	background: #eee;
+	margin: 0;
+}
+
+.link-button:hover {
+	background: rgb(54, 215, 225);
+	color: black;
+}
+
+.link-button.save {
+	background: rgb(54, 215, 225);
+	color: black;
+}
+
+.link-button.save:hover {
+	background: black;
+	color: white;
+}
+
+.checkmark-true {
+	background: url(../images/checkmark.png) no-repeat 5px 12px;
 }
 
 nav {
@@ -205,6 +239,16 @@ header {
 	padding: 6px 10px;
 	margin-left: 0px;
 	text-transform: uppercase;
+}
+
+.logged-in {
+	padding-top: 4px;
+	font-size: 12px;
+}
+
+.logged-in a {
+	color: rgb(54, 215, 225);
+	text-decoration: none;
 }
 
 header h1 {
