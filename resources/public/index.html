@@ -42,8 +42,8 @@
         <ul>
       		<a ng-click="sarjataulukko(conferenceid,conferenceName)" href="#"><li class="tab">Sarjataulukko</li></a>
       		<a ng-click="sarjaohjelma(conferenceid)" href="#"><li class="tab">Sarjaohjelma</li></a>
-          <!--<a ng-show="IsLogin()" ng-click="sarjaohjelma()" href="#"><li class="tab">Oma sarjaohjelma</li></a>-->
-          <a ng-show="user.roleid === 1" target="_blank" href="/test.html"><li class="tab">Hallinta</li></a>
+          <a ng-show="IsLogin()" ng-click="omasarjaohjelma(user.id)" href="#"><li class="tab">Oma sarjaohjelma</li></a>
+          <a ng-show="user.roleid === 1" target="_blank" href="/shl/test.html"><li class="tab">Hallinta</li></a>
     	</ul>
     </div>
   	<div class="content">

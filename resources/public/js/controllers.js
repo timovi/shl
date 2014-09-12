@@ -1,8 +1,9 @@
 'use strict';
 
 
-angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', 'GetConferences', 'GetUser', 'GetGames', 'UpdateGame', '$filter', 
-  function ($scope, GetActiveTournaments, GetConferences, GetUser, GetGames, UpdateGame, $filter) {
+angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', 'GetConferences', 'GetUser', 'GetGames', 'UpdateGame', '$filter',
+  'GetOwnGames', 
+  function ($scope, GetActiveTournaments, GetConferences, GetUser, GetGames, UpdateGame, $filter, GetOwnGames) {
 
   $scope.Read = true;
   $scope.logged = false;
@@ -54,7 +55,7 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
   {
     $scope.playdate = new Date();
     $scope.EditItemId = id;
-    if(row.playdate !== null)
+    if(row.playdate)
     {
       $scope.playdate = row.playdate;
     }
@@ -92,6 +93,16 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
     });
 
 }
+  $scope.omasarjaohjelma = function(userid){
+    $scope.showWrapper = true;
+    $scope.showSchedule = true;
+    $scope.showStandings = false;
+    $scope.EditItemId  = false;
+    $scope.conferenceName = "Oma sarjaohjelma"
+     getOwnGames(userid, function(games){
+      $scope.schedule = games;
+    });
+  }
 
 
   $scope.sarjataulukko = function(conferenceid, conferenceName) {
@@ -123,6 +134,12 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
     var getGames = function(ConferenceId, callback){
       return GetGames.get({
         conferenceid : ConferenceId
+        }, callback);
+    };
+
+    var getOwnGames = function(userId, callback){
+      return GetOwnGames.get({
+        playerid : userId
         }, callback);
     };
 
