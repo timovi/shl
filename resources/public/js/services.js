@@ -1,6 +1,6 @@
 'use strict'
 
-var host = 'http://localhost:8080'
+var host = 'http://localhost:8080/shl'
 
 angular.module('shlServices', ['ngResource'])
 	.factory('GetActiveTournaments', ['$resource', function ($resource) {

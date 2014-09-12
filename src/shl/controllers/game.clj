@@ -17,9 +17,14 @@
 (defn get-conference-games [conferenceid]
   (response (dao/get-conference-games (Integer/parseInt conferenceid))))
 
+(defn get-player-games [playerid]
+  (response (dao/get-player-games (Integer/parseInt playerid))))
+
+
 (defroutes app-routes
   (context "/games" [] (defroutes game-routes
     (GET ["/conference/:id/" :id #"[0-9]+"] [id] (get-conference-games id))
+    (GET ["/player/:id/" :id #"[0-9]+"] [id] (get-player-games id))
     (POST "/" [id homegoals awaygoals 
               overtime shootout playdate] 
       (update id homegoals awaygoals overtime shootout playdate)))))

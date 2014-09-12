@@ -7,26 +7,26 @@
     
     <h2>Users</h2>
     <div>
-        <a href="/users/<username>/">Get user</a>
+        <a href="/shl/users/<username>/">Get user</a>
     </div>
     <hr />
     
     <h2>Roles</h2>
     <div>
-        <a href="/roles/">Get roles</a>
+        <a href="/shl/roles/">Get roles</a>
     </div>
     <hr />
     
     
     <h2>Teams</h2>
     <div>
-        <a href="/teams/">Get teams</a>
+        <a href="/shl/teams/">Get teams</a>
     </div>
     <hr />
     
     <h3>Add team</h3>
     <div>
-        <form action="/teams/" method="post">
+        <form action="/shl/teams/" method="post">
             <table>
                 <tr>
                     <td>Name</td>
@@ -43,18 +43,18 @@
     
     <h2>Tournaments</h2>
     <div>
-        <a href="/tournaments/">Get tournaments</a>
+        <a href="/shl/tournaments/">Get tournaments</a>
     </div>
     <hr />
 
     <div>
-        <a href="/tournaments/active/">Get active tournament</a>
+        <a href="/shl/tournaments/active/">Get active tournament</a>
     </div>
     <hr />
     
     <h3>Add tournament</h3>
     <div>
-        <form action="/tournaments/" method="post">
+        <form action="/shl/tournaments/" method="post">
             <table>
                 <tr>
                     <td>Name</td>
@@ -87,7 +87,7 @@
     
     <h3>Activate tournament</h3>
     <div>
-        <form action="/tournaments/activate/" method="post">
+        <form action="/shl/tournaments/activate/" method="post">
             <table>
                 <tr>
                     <td>Tournament id</td>
@@ -104,13 +104,13 @@
     
     <h2>Conferences</h2>
     <div>
-        <a href="/tournaments/<id>/conferences/">Get conferences</a>
+        <a href="/shl/tournaments/<id>/conferences/">Get conferences</a>
     </div>
     <hr />
     
     <h3>Add conference</h3>
     <div>
-        <form action="/tournaments/conferences/" method="post">
+        <form action="/shl/tournaments/conferences/" method="post">
             <table>
                 <tr>
                     <td>Name</td>
@@ -131,13 +131,13 @@
     
     <h2>Players</h2>
     <div>
-        <a href="/players/conference/<conferenceid>/">Get players</a>
+        <a href="/shl/players/conference/<conferenceid>/">Get players</a>
     </div>
     <hr />
     
     <h3>Add player</h3>
     <div>
-        <form action="/players/" method="post">
+        <form action="/shl/players/" method="post">
             <table>
                 <tr>
                     <td>User id</td>
@@ -161,7 +161,7 @@
     
     <h3>Delete player</h3>
     <div>
-        <form action="/players/" method="delete">
+        <form action="/shl/players/" method="delete">
             <table>
                 <tr>
                     <td>Player id</td>
@@ -177,13 +177,17 @@
     
     <h2>Games</h2>
     <div>
-        <a href="/games/conference/<conferenceid>/">Get games</a>
+        <a href="/shl/games/conference/<conferenceid>/">Get conference games</a>
+    </div>
+    <hr />
+	<div>
+        <a href="/shl/games/player/<playerid>/">Get player games</a>
     </div>
     <hr />
     
     <h3>Update game</h3>
     <div>
-        <form action="/games/" method="post">
+        <form action="/shl/games/" method="post">
             <table>
                 <tr>
                     <td>Game id</td>
@@ -219,23 +223,23 @@
     
     <h2>Standings</h2>
     <div>
-        <a href="/standings/tournament/<tournamentid>/">Get tournament standings</a>
+        <a href="/shl/standings/tournament/<tournamentid>/">Get tournament standings</a>
     </div>
     <div>
-        <a href="/standings/conference/<conferenceid>/">Get conference standings</a>
+        <a href="/shl/standings/conference/<conferenceid>/">Get conference standings</a>
     </div>
     <div>
-        <a href="/standings/player/<playerid>/">Get player standings</a>
+        <a href="/shl/standings/player/<playerid>/">Get player standings</a>
     </div>
     <hr />
     
     
     <h2>Statistics</h2>
     <div>
-        <a href="/statistics/conference/<conferenceid>/">Get conference statistics</a>
+        <a href="/shl/statistics/conference/<conferenceid>/">Get conference statistics</a>
     </div>
     <div>
-        <a href="/statistics/player/<playerid>/">Get player statistics</a>
+        <a href="/shl/statistics/player/<playerid>/">Get player statistics</a>
     </div>
     <hr />
     
