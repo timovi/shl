@@ -23,5 +23,6 @@
 
 (defn get-conference-standings [conferenceid]
   (let [stats (get-conference-stats conferenceid)]
-    (sort-by :points #(compare %2 %1)
-      (stats-utils/calculate-conference-standings stats))))
+    (reverse 
+      (sort-by #(vec (map % [:points :win :ot-win :ot-defeat :plus-minus :goals-scored])) 
+               (stats-utils/calculate-conference-standings stats)))))

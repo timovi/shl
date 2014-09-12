@@ -59,6 +59,9 @@
     (inc (prev result-key)) 
     (prev result-key)))
 
+(defn- calculate-plusminus [prev goals-scored goals-let]
+  (- (+ prev goals-scored) goals-let))
+
 (defn calculate-player-standings [player-game-stats]
   (reduce 
       (fn[prev curr] 
@@ -73,6 +76,7 @@
          :not-played   (inc-result prev curr :not-played)
          :goals-scored (+ (prev :goals-scored) (curr :goals-scored)) 
          :goals-let    (+ (prev :goals-let) (curr :goals-let))
+         :plus-minus   (calculate-plusminus (prev :plus-minus) (curr :goals-scored) (curr :goals-let))
          :points       (+ (prev :points) (curr :points))
         }) 
       {:playerid     (:playerid  (first player-game-stats)) 
@@ -86,6 +90,7 @@
        :not-played   0 
        :goals-scored 0 
        :goals-let    0 
+       :plus-minus   0
        :points       0}
       player-game-stats))
 
