@@ -58,7 +58,10 @@
 
 (defn get-conference-games [conferenceid]
   (j/query db/db 
-    (s/format (get-conference-games-sql conferenceid))))
+    (s/format (get-conference-games-sql conferenceid))
+    :row-fn #(assoc % :playdate (str (time-utils/from-sql-date (% :playdate)))
+                      :modifieddate (str (time-utils/from-sql-date (% :modifieddate)))) 
+    ))
 
 (defn- get-game-sql [gameid]
     (s/build :select :* 
@@ -101,8 +104,8 @@
 (defn get-player-games [playerid]
   (j/query db/db 
     (s/format (get-player-games-sql playerid))
-    :row-fn #(assoc % :playdate (time-utils/from-sql-date (% :playdate))
-                      :modifieddate (time-utils/from-sql-date (% :modifieddate))) 
+    :row-fn #(assoc % :playdate (str (time-utils/from-sql-date (% :playdate)))
+                      :modifieddate (str (time-utils/from-sql-date (% :modifieddate)))) 
    ))
 
 (defn- get-player-game-results-sql [playerid]
