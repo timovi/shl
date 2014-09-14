@@ -18,6 +18,9 @@ angular.module('shlServices', ['ngResource'])
     .factory('GetOwnGames', ['$resource', function ($resource) {
         return $resource(host + '/games/player/:playerid/ ', {}, { 'get': {method: 'GET', isArray: true}});
     }])
+    .factory('GetConferenceStandings', ['$resource', function ($resource) {
+        return $resource(host + '/standings/conference/:conferenceid/ ', {}, { 'get': {method: 'GET', isArray: true}});
+    }])
 
     .factory('UpdateGame', ['$resource', function ($resource) {
         return $resource(host + '/games ', {}, { 'post': {method: 'POST', isArray: false}});

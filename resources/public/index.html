@@ -53,16 +53,26 @@
           <tr>
               <th>Joukkue</th>
               <th>Ottelut</th>
+              <th>Voitot</th>
+              <th>JA-voitot</th>
+              <th>JA-tappiot</th>
+              <th>Tappiot</th>
               <th>Tehdyt maalit</th>
               <th>Päästetyt maalit</th>
+              <th>Maaliero</th>
               <th>Pisteet</th>
           </tr>
-              <tr ng-repeat="team in teams">
-                <td>{{team.name}}</td>
-                <td>{{team.games}}
-                <td>{{team.goals}}</td>
-                <td>{{team.againtsGoals}}</td>
-                <td>{{team.points}}</td>
+          <tr ng-repeat="(rowIndex, row) in standings">
+                <td class="team-logo {{row.team | removeSpacesThenLowercase}}">{{row.firstname}} {{row.lastname}}</td>
+                <td ng-show="Read(rowIndex)">{{row.games}}</td>
+                <td ng-show="Read(rowIndex)">{{row.wins}}</td>
+                <td ng-show="Read(rowIndex)">{{row.otwins}}</td>
+                <td ng-show="Read(rowIndex)">{{row.otdefeats}}</td>
+                <td ng-show="Read(rowIndex)">{{row.defeats}}</td>
+                <td ng-show="Read(rowIndex)">{{row.goalsscored}}</td>
+                <td ng-show="Read(rowIndex)">{{row.goalslet}}</td>
+                <td ng-show="Read(rowIndex)">{{row.plusminus}}</td>
+                <td ng-show="Read(rowIndex)">{{row.points}}</td>
           </tr>
         </table>
   		</div>

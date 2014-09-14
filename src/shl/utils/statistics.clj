@@ -3,10 +3,10 @@
            [clj-time.core :as t]))
 
 (def points {:win        3 
-             :ot-win     2
-             :ot-defeat  1
+             :otwin      2
+             :otdefeat   1
              :defeat     0
-             :not-played 0})
+             :notplayed  0})
 
 (defn- map-game [gameid playerid opponentid firstname lastname team result goals-scored goals-let]
   {:gameid       gameid
@@ -16,8 +16,8 @@
    :lastname     lastname
    :team         team
    :result       result 
-   :goals-scored goals-scored
-   :goals-let    goals-let
+   :goalsscored  goals-scored
+   :goalslet     goals-let
    :points       (get points result)})
 
 (defn- get-game-result [playerid game home]
@@ -36,10 +36,10 @@
         playdate           (get game :playdate)]
     (cond 
       (and player-won (not overtime))  (map-game gameid playerid opponentid firstname lastname team :win player-goals opponent-goals)
-      (and player-won overtime)        (map-game gameid playerid opponentid firstname lastname team :ot-win player-goals opponent-goals)
-      (and player-lost overtime)       (map-game gameid playerid opponentid firstname lastname team :ot-defeat player-goals opponent-goals)
+      (and player-won overtime)        (map-game gameid playerid opponentid firstname lastname team :otwin player-goals opponent-goals)
+      (and player-lost overtime)       (map-game gameid playerid opponentid firstname lastname team :otdefeat player-goals opponent-goals)
       (and player-lost (not overtime)) (map-game gameid playerid opponentid firstname lastname team :defeat player-goals opponent-goals)
-      :else                            (map-game gameid playerid opponentid firstname lastname team :not-played player-goals opponent-goals))))
+      :else                            (map-game gameid playerid opponentid firstname lastname team :notplayed player-goals opponent-goals))))
 
 (defn- get-game-results [playerid games home]
   (map #(get-game-result playerid % home) games))
@@ -54,10 +54,15 @@
 (defn filter-player-games [playerid all-games]
   (filter #(or (= (% :homeplayerid) playerid) (= (% :awayplayerid) playerid)) all-games))
 
-(defn- inc-result [prev curr result-key]
-  (if (= (curr :result) result-key) 
+(defn- inc-result [prev curr key result-key]
+  (if (= (curr :result) key) 
     (inc (prev result-key)) 
     (prev result-key)))
+
+(defn- calculate-number-of-games [prev curr]
+  (if (not (= (curr :result) :notplayed))
+    (inc (prev :games)) 
+    (prev :games)))
 
 (defn- calculate-plusminus [prev goals-scored goals-let]
   (- (+ prev goals-scored) goals-let))
@@ -69,28 +74,30 @@
          :firstname    (prev :firstname)
          :lastname     (prev :lastname)
          :team         (prev :team)
-         :win          (inc-result prev curr :win)
-         :ot-win       (inc-result prev curr :ot-win)
-         :ot-defeat    (inc-result prev curr :ot-defeat)
-         :defeat       (inc-result prev curr :defeat)
-         :not-played   (inc-result prev curr :not-played)
-         :goals-scored (+ (prev :goals-scored) (curr :goals-scored)) 
-         :goals-let    (+ (prev :goals-let) (curr :goals-let))
-         :plus-minus   (calculate-plusminus (prev :plus-minus) (curr :goals-scored) (curr :goals-let))
+         :games        (calculate-number-of-games prev curr)
+         :wins         (inc-result prev curr :win :wins)
+         :otwins       (inc-result prev curr :otwin :otwins)
+         :otdefeats    (inc-result prev curr :otdefeat :otdefeats)
+         :defeats      (inc-result prev curr :defeat :defeats)
+         :notplayed    (inc-result prev curr :notplayed :notplayed)
+         :goalsscored  (+ (prev :goalsscored) (curr :goalsscored)) 
+         :goalslet     (+ (prev :goalslet) (curr :goalslet))
+         :plusminus    (calculate-plusminus (prev :plusminus) (curr :goalsscored) (curr :goalslet))
          :points       (+ (prev :points) (curr :points))
         }) 
       {:playerid     (:playerid  (first player-game-stats)) 
        :firstname    (:firstname (first player-game-stats))
-       :lastname     (:lastname (first player-game-stats)) 
+       :lastname     (:lastname  (first player-game-stats)) 
        :team         (:team      (first player-game-stats)) 
-       :win          0 
-       :ot-win       0 
-       :ot-defeat    0 
-       :defeat       0 
-       :not-played   0 
-       :goals-scored 0 
-       :goals-let    0 
-       :plus-minus   0
+       :games        0
+       :wins         0 
+       :otwins       0 
+       :otdefeats    0 
+       :defeats      0 
+       :notplayed    0 
+       :goalsscored  0 
+       :goalslet     0 
+       :plusminus    0
        :points       0}
       player-game-stats))
 

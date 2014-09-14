@@ -1,9 +1,9 @@
 'use strict';
 
 
-angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', 'GetConferences', 'GetUser', 'GetGames', 'UpdateGame', '$filter',
+angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', 'GetConferences', 'GetConferenceStandings', 'GetUser', 'GetGames', 'UpdateGame', '$filter',
   'GetOwnGames', 
-  function ($scope, GetActiveTournaments, GetConferences, GetUser, GetGames, UpdateGame, $filter, GetOwnGames) {
+  function ($scope, GetActiveTournaments, GetConferences, GetConferenceStandings, GetUser, GetGames, UpdateGame, $filter, GetOwnGames) {
 
   $scope.Read = true;
   $scope.logged = false;
@@ -115,6 +115,10 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
     $scope.conferenceName = conferencename;
     $scope.activeconference = conferencename;
     $scope.EditItemId  = false;
+    getConferenceStandings(conferenceid, function(standings){
+      $scope.standings = standings;
+
+    });
   }
 
     var getTournament = function(callback){
@@ -125,6 +129,12 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
     var getConferences = function(TournamentId, callback){
       return GetConferences.get({
         id : TournamentId
+        }, callback);
+    };
+
+    var getConferenceStandings = function(ConferenceId, callback){
+      return GetConferenceStandings.get({
+        conferenceid : ConferenceId
         }, callback);
     };
 
