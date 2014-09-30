@@ -37,10 +37,14 @@
     (s/format (get-users-sql))))
 
 (defn- get-user-sql [username]
-  (s/build :select [:u.* [:r.name "role"]] 
+  (s/build :select [:u.* [:r.name "role"] [:p.id "playerid"]] 
            :from [[:user_ :u]]
            :join [[:role :r] [:= :r.id :u.roleid]]
-           :where [:= :u.username username]))
+           :left-join [[:player :p] [:= :p.userid :u.id]
+                       [:conference :c] [:= :c.id :p.conferenceid]
+                       [:tournament :t] [:and [:= :t.id :c.tournamentid] [:= :t.active true]]]
+           :where [:= :u.username username]
+           :limit 1))
 
 (defn get-user [username]
   (first(j/query db/db 
