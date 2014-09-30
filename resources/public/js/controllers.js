@@ -95,13 +95,13 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
     });
 
 }
-  $scope.omasarjaohjelma = function(userid){
+  $scope.omasarjaohjelma = function(playerid){
     $scope.showWrapper = true;
     $scope.showSchedule = true;
     $scope.showStandings = false;
     $scope.EditItemId  = false;
     $scope.conferenceName = "Oma sarjaohjelma"
-     getOwnGames(userid, function(games){
+     getOwnGames(playerid, function(games){
       $scope.schedule = games;
     });
   }
@@ -150,9 +150,9 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
         }, callback);
     };
 
-    var getOwnGames = function(userId, callback){
+    var getOwnGames = function(playerId, callback){
       return GetOwnGames.get({
-        playerid : userId
+        playerid : playerId
         }, callback);
     };
 
