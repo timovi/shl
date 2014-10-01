@@ -1,13 +1,13 @@
 # shl
 
-A Clojure library designed to ... well, that part is up to you.
+Solita Hockey League statistics service
 
 ## Usage
 
-FIXME
+Requirements: Java, Leiningen, postgresql
 
 ## License
 
-Copyright © 2013 FIXME
+Copyright © 2014 Solita
 
 Distributed under the Eclipse Public License, the same as Clojure.
