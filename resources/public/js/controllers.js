@@ -1,15 +1,20 @@
 'use strict';
 
+var shl = angular.module('shl',['ngCookies', 'shlServices']);
 
-angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', 'GetConferences', 'GetConferenceStandings', 'GetUser', 'GetGames', 'UpdateGame', '$filter',
-  'GetOwnGames', 
-  function ($scope, GetActiveTournaments, GetConferences, GetConferenceStandings, GetUser, GetGames, UpdateGame, $filter, GetOwnGames) {
+shl.controller('shlCtrl', ['$scope','$cookies','$cookieStore', '$filter', 'GetActiveTournaments','GetConferences', 'GetConferenceStandings', 'GetUser', 'GetGames', 'UpdateGame','GetOwnGames',
+  function ($scope, $cookies, $cookieStore, $filter, GetActiveTournaments, GetConferences, GetConferenceStandings, GetUser, GetGames, UpdateGame, GetOwnGames) {
 
   $scope.Read = true;
   $scope.logged = false;
 
+
   $scope.init = function()
   {
+    if($scope.IsLogin())
+    {
+      $scope.user = $cookieStore.get('user');
+    }
     getTournament(function(tournament){
       $scope.tournament = tournament;
       getConferences(tournament.id, function(conferences){
@@ -26,6 +31,8 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
       if(user.role !== undefined)
       {
         $scope.logged = true;
+        $cookieStore.put('logged', true);
+        $cookieStore.put('user', user);
       }
     }); 
   }
@@ -34,7 +41,8 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
 
   $scope.IsLogin = function()
   {
-    if($scope.logged)
+    var logged = $cookieStore.get('logged');
+    if(logged)
     {
       return true;
     }
@@ -48,6 +56,8 @@ angular.module("shl").controller('shlCtrl', ['$scope', 'GetActiveTournaments', '
   {
     $scope.logged = false;
     $scope.username = "";
+    $cookieStore.remove('logged');
+    $cookieStore.remove('user');
   }
 
 

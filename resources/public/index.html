@@ -5,8 +5,9 @@
     <title>SHL - Solita Hockey League</title>
     <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,200,200italic,300,300italic' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="./css/all.css" />
-    <script src="./js/angular-1.2.6/angular.min.js"></script>
-    <script src="./js/angular-1.2.6/angular-resource.min.js"></script>
+    <script type="text/javascript" src="./js/angular-1.2.6/angular.min.js"></script>
+    <script type="text/javascript" src="./js/angular-1.2.6/angular-resource.min.js"></script>
+    <script type="text/javascript" src="./js/angular-1.2.6/angular-cookies.min.js"></script>
     <script type="text/javascript" src="./js/app.js"></script>
     <script type="text/javascript" src="./js/services.js"></script>
     <script type="text/javascript" src="./js/controllers.js"></script>
@@ -23,7 +24,7 @@
       </form>
     </div>
     <div ng-show="IsLogin()" class="logged-in">
-      <span>Olet kirjautunut: {{username}}</span>&nbsp;&nbsp;<span class="divider">|</span>&nbsp;&nbsp; <a href="#" ng-click="LogOut()">Kirjaudu ulos</a>
+      <span>Olet kirjautunut: {{user.username}}</span>&nbsp;&nbsp;<span class="divider">|</span>&nbsp;&nbsp; <a href="#" ng-click="LogOut()">Kirjaudu ulos</a>
     </div> 
   </div>
   <img src="images/shl-logo.png" alt="SHL" class="shl-logo" />
