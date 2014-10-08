@@ -15,20 +15,10 @@
 <body ng-controller="shlCtrl" ng-init="init()">
     
 <header>
-  <div class="login">
-    <div ng-hide="IsLogin()">
-      <form ng-submit="login()" method="post">
-        <label>Käyttäjätunnus:</label>
-        <input type="text" ng-model="username" name="username">
-        <input class="login-submit" type="submit" id="login" value="Kirjaudu" />
-      </form>
-    </div>
-    <div ng-show="IsLogin()" class="logged-in">
-      <span>Olet kirjautunut: {{user.username}}</span>&nbsp;&nbsp;<span class="divider">|</span>&nbsp;&nbsp; <a href="#" ng-click="LogOut()">Kirjaudu ulos</a>
-    </div> 
+  <div class="logo-and-name">
+    <img src="images/shl-logo.png" alt="SHL" class="shl-logo" />
+    <h1>{{tournament.name}}</h1>
   </div>
-  <img src="images/shl-logo.png" alt="SHL" class="shl-logo" />
-  <h1>{{tournament.name}}</h1>
     <nav>
         <ul>
             <a ng-repeat="conf in conferences" ng-click="sarjataulukko(conf.id, conf.name)" href="#">
@@ -36,6 +26,19 @@
         </ul>
     </nav>
 </header>
+    <div class="login">
+      <div ng-hide="IsLogin()">
+        <form ng-submit="login()" method="post">
+          <label>Käyttäjätunnus:</label>
+          <input type="text" ng-model="username" name="username">
+          <input class="login-submit" type="submit" id="login" value="Kirjaudu" />
+        </form>
+      </div>
+      <div ng-show="IsLogin()" class="logged-in">
+        <span>Olet kirjautunut: {{user.username}}</span>&nbsp;&nbsp;<span class="divider">|</span>&nbsp;&nbsp; <a href="#" ng-click="LogOut()">Kirjaudu ulos</a>
+      </div> 
+  </div>
+
 
 <div class="container" ng-show="showWrapper">
   <div  class="contentWrapper">
