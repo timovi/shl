@@ -77,8 +77,7 @@ th.tools-header {
 }
 
 nav {
-	float: left;
-	margin-left: 20px;
+
 }
 
 nav li {
@@ -199,11 +198,17 @@ header, .contentWrapper, footer{
 
 header {
 	background: black;
-	position: fixed;
+	/* position: fixed; */
 	top: 0px;
 	left: 0px;
 	color: white;
 	width: 100%;
+}
+
+.logo-and-name
+{
+	float:left;
+	height: 60px;
 }
 
 .shl-logo {
@@ -213,9 +218,10 @@ header {
 }
 
 .login {
-	position: absolute;
-	right: 40px;
-	top: 6px;
+	
+	background-color:black;
+	padding: 10px 10px 10px 10px;
+	float: right;
 }
 
 .login label {
@@ -244,6 +250,7 @@ header {
 .logged-in {
 	padding-top: 4px;
 	font-size: 12px;
+	color: white;
 }
 
 .logged-in a {
