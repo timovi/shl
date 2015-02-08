@@ -39,10 +39,10 @@
 (defn- get-user-sql [username]
   (s/build :select [:u.* [:r.name "role"] [:p.id "playerid"]] 
            :from [[:user_ :u]]
-           :join [[:role :r] [:= :r.id :u.roleid]]
-           :left-join [[:player :p] [:= :p.userid :u.id]
-                       [:conference :c] [:= :c.id :p.conferenceid]
-                       [:tournament :t] [:and [:= :t.id :c.tournamentid] [:= :t.active true]]]
+           :join [[:role :r] [:= :r.id :u.roleid]
+                  [:player :p] [:= :p.userid :u.id]
+                  [:conference :c] [:= :c.id :p.conferenceid]
+                  [:tournament :t] [:and [:= :t.id :c.tournamentid] [:= :t.active true]]]
            :where [:= :u.username username]
            :limit 1))
 
