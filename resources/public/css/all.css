@@ -273,36 +273,36 @@ header h1 {
 	background-image: url(../images/logos.svg);
 }
 
-.anaheim-ducks 		{		background-position: 4px 0px;		}
-.arizona-coyotes 	{		background-position: 4px -100px; 	}
-.boston-bruins	 	{		background-position: 4px -200px; 	}
-.buffalo-sabres 	{		background-position: 4px -300px; 	}
-.calgary-flames 	{		background-position: 4px -400px; 	}
-.carolina-hurricanes{		background-position: 4px -500px; 	}
-.chicago-blackhawks	{		background-position: 4px -600px; 	}
-.colorado-avalanche	{		background-position: 0px -700px; 	}
-.columbus-blue-jackets{		background-position: 0px -800px; 	}
-.dallas-stars	 	{		background-position: 0px -900px; 	}
-.detroit-red-wings 	{		background-position: 0px -1000px; 	}
-.florida-panthers 	{		background-position: 0px -1100px; 	}
-.edmonton-oilers 	{		background-position: 0px -1200px; 	}
-.new-york-islanders	{		background-position: 0px -1300px; 	}
-.los-angeles-kings 	{		background-position: 0px -1400px; 	}
-.minnesota-wild 	{		background-position: 0px -1500px; 	}
-.montreal-canadiens	{		background-position: 0px -1600px; 	}
-.nashville-predators{		background-position: 0px -1700px; 	}
-.new-jersey-devils 	{		background-position: 0px -1800px; 	}
-.new-york-rangers 	{		background-position: 0px -1900px;	}
-.ottawa-senators 	{		background-position: 0px -2000px; 	}
-.philadelphia-flyers{		background-position: 0px -2100px; 	}
-.pittsburgh-penguins{		background-position: 0px -2200px; 	}
-.san-jose-sharks 	{		background-position: 0px -2300px; 	}
-.st-louis-blues 	{		background-position: 0px -2400px; 	}
-.tampa-bay-lightning{		background-position: 0px -2500px; 	}
-.toronto-maple-leafs{		background-position: 0px -2600px; 	}
-.vancouver-canucks 	{		background-position: 0px -2700px; 	}
-.washington-capitals{		background-position: 0px -2800px; 	}
-.winnipeg-jets 		{		background-position: 0px -2900px; 	}
+.anaheim-ducks 		{		background-position: 0px -166px;	}
+.arizona-coyotes 	{		background-position: 0px -264px; 	}
+.boston-bruins	 	{		background-position: -2px -355px; 	}
+.buffalo-sabres 	{		background-position: 0px -444px; 	}
+.calgary-flames 	{		background-position: 0px -535px; 	}
+.carolina-hurricanes{		background-position: 0px -619px; 	}
+.chicago-blackhawks	{		background-position: 0px -713px; 	}
+.colorado-avalanche	{		background-position: 0px -805px; 	}
+.columbus-blue-jackets{		background-position: 0px -895px; 	}
+.dallas-stars	 	{		background-position: 0px -985px; 	}
+.detroit-red-wings 	{		background-position: 0px -1075px; 	}
+.florida-panthers 	{		background-position: 0px -1165px; 	}
+.edmonton-oilers 	{		background-position: 0px -1258px; 	}
+.new-york-islanders	{		background-position: 0px -1348px; 	}
+.los-angeles-kings 	{		background-position: 2px -1438px; 	}
+.minnesota-wild 	{		background-position: 0px -1523px; 	}
+.montreal-canadiens	{		background-position: 0px -1614px; 	}
+.nashville-predators{		background-position: 0px -1703px; 	}
+.new-jersey-devils 	{		background-position: 0px -1798px; 	}
+.new-york-rangers 	{		background-position: 0px -1889px;	}
+.ottawa-senators 	{		background-position: 0px -1980px; 	}
+.philadelphia-flyers{		background-position: 0px -2067px; 	}
+.pittsburgh-penguins{		background-position: 0px -2159px; 	}
+.san-jose-sharks 	{		background-position: 4px -2249px; 	}
+.st-louis-blues 	{		background-position: 0px -2337px; 	}
+.tampa-bay-lightning{		background-position: 0px -2430px; 	}
+.toronto-maple-leafs{		background-position: 0px -2524px; 	}
+.vancouver-canucks 	{		background-position: 0px -2612px; 	}
+.washington-capitals{		background-position: 0px -2696px; 	}
+.winnipeg-jets 		{		background-position: 0px -2792px; 	}
 
 footer {
 	color: white;
