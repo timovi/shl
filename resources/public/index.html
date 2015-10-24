@@ -65,6 +65,7 @@
               <th>Päästetyt maalit</th>
               <th>Maaliero</th>
               <th>Pisteet</th>
+              <th>Pisteet/peli</th>
           </tr>
           <tr ng-repeat="(rowIndex, row) in standings">
                 <td class="team-logo {{row.team | removeSpacesThenLowercase}}">{{row.firstname}} {{row.lastname}}</td>
@@ -77,6 +78,7 @@
                 <td ng-show="Read(rowIndex)">{{row.goalslet}}</td>
                 <td ng-show="Read(rowIndex)">{{row.plusminus}}</td>
                 <td ng-show="Read(rowIndex)">{{row.points}}</td>
+                <td ng-show="Read(rowIndex)">{{(row.points/row.games) | number:2}}</td>
           </tr>
         </table>
   		</div>
