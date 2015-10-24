@@ -8,7 +8,9 @@
              :defeat     0
              :notplayed  0})
 
-(defn- map-game [gameid playerid opponentid firstname lastname team result goals-scored goals-let]
+(defn- map-game 
+  "Returns a map containing the game results given in the parameters plus the points from the game"
+  [gameid playerid opponentid firstname lastname team result goals-scored goals-let]
   {:gameid       gameid
    :playerid     playerid
    :opponentid   opponentid
@@ -20,7 +22,9 @@
    :goalslet     goals-let
    :points       (get points result)})
 
-(defn- get-game-result [playerid game home]
+(defn- get-game-result 
+  "Calculates a results map for the player from a single game"
+  [playerid game home]
   (let [gameid             (get game :id)
         opponentid         (if home (get game :awayplayerid)  (get game :homeplayerid))
         firstname          (if home (get game :homefirstname) (get game :awayfirstname))
@@ -41,49 +45,63 @@
       (and player-lost (not overtime)) (map-game gameid playerid opponentid firstname lastname team :defeat player-goals opponent-goals)
       :else                            (map-game gameid playerid opponentid firstname lastname team :notplayed player-goals opponent-goals))))
 
-(defn- get-game-results [playerid games home]
+(defn- get-game-results 
+  "A helper function to calculate a list of game results using either the home or the away games of the player"
+  [playerid games home]
   (map #(get-game-result playerid % home) games))
 
-(defn get-player-game-results [playerid games]
+(defn get-player-game-results 
+  "Calculates game results from all of the games the player has played in"
+  [playerid games]
   (let [home-games (group-by :homeplayerid games)
         away-games (group-by :awayplayerid games)]
     (concat
        (get-game-results playerid (get home-games playerid) true)
        (get-game-results playerid (get away-games playerid) false))))
 
-(defn filter-player-games [playerid all-games]
+(defn filter-player-games 
+  "Filters the games where the given player has played (home or away) from a sequence of games"
+  [playerid all-games]
   (filter #(or (= (% :homeplayerid) playerid) (= (% :awayplayerid) playerid)) all-games))
 
-(defn- inc-result [prev curr key result-key]
-  (if (= (curr :result) key) 
+(defn- inc-game-result 
+  "Increases the previous result if the current game's result is the same as the key. Otherwise returns the previous value of the result-key"
+  [prev current-game key result-key]
+  (if (= (current-game :result) key) 
     (inc (prev result-key)) 
     (prev result-key)))
 
-(defn- calculate-number-of-games [prev curr]
-  (if (not (= (curr :result) :notplayed))
+(defn- inc-number-of-games 
+  "Increases the number of games played if the result of the current game is some other than :notplayed"
+  [prev current-game]
+  (if (not (= (current-game :result) :notplayed))
     (inc (prev :games)) 
     (prev :games)))
 
-(defn- calculate-plusminus [prev goals-scored goals-let]
-  (- (+ prev goals-scored) goals-let))
+(defn- inc-plusminus 
+  "Returns a new plus-minus result by adding goal counts of a single game to a previous result"
+  [prev goals-scored-in-game goals-let-in-game]
+  (- (+ prev goals-scored-in-game) goals-let-in-game))
 
-(defn calculate-player-standings [player-game-stats]
+(defn calculate-player-standings 
+  "Calculates the standings results (number of games, wins, defeats, goal amounts, points, etc) of a single player from the player's game results"
+  [player-game-stats]
   (reduce 
-      (fn[prev curr] 
+      (fn[prev current-game] 
         {:playerid     (prev :playerid)
          :firstname    (prev :firstname)
          :lastname     (prev :lastname)
          :team         (prev :team)
-         :games        (calculate-number-of-games prev curr)
-         :wins         (inc-result prev curr :win :wins)
-         :otwins       (inc-result prev curr :otwin :otwins)
-         :otdefeats    (inc-result prev curr :otdefeat :otdefeats)
-         :defeats      (inc-result prev curr :defeat :defeats)
-         :notplayed    (inc-result prev curr :notplayed :notplayed)
-         :goalsscored  (+ (prev :goalsscored) (curr :goalsscored)) 
-         :goalslet     (+ (prev :goalslet) (curr :goalslet))
-         :plusminus    (calculate-plusminus (prev :plusminus) (curr :goalsscored) (curr :goalslet))
-         :points       (+ (prev :points) (curr :points))
+         :games        (inc-number-of-games prev current-game)
+         :wins         (inc-game-result prev current-game :win :wins)
+         :otwins       (inc-game-result prev current-game :otwin :otwins)
+         :otdefeats    (inc-game-result prev current-game :otdefeat :otdefeats)
+         :defeats      (inc-game-result prev current-game :defeat :defeats)
+         :notplayed    (inc-game-result prev current-game :notplayed :notplayed)
+         :goalsscored  (+ (prev :goalsscored) (current-game :goalsscored)) 
+         :goalslet     (+ (prev :goalslet) (current-game :goalslet))
+         :plusminus    (inc-plusminus (prev :plusminus) (current-game :goalsscored) (current-game :goalslet))
+         :points       (+ (prev :points) (current-game :points))
         }) 
       {:playerid     (:playerid  (first player-game-stats)) 
        :firstname    (:firstname (first player-game-stats))
@@ -101,5 +119,7 @@
        :points       0}
       player-game-stats))
 
-(defn calculate-conference-standings [conference-game-stats]
-    (map #(calculate-player-standings %) conference-game-stats))
+(defn calculate-conference-standings 
+  "Calculates the standings results (number of games, wins, defeats, goal amounts, points, etc) of a all the players in a conference"
+  [conference-game-stats]
+  (map #(calculate-player-standings %) conference-game-stats))
