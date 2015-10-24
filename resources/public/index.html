@@ -77,7 +77,7 @@
                 <td ng-show="Read(rowIndex)">{{row.goalsscored}}</td>
                 <td ng-show="Read(rowIndex)">{{row.goalslet}}</td>
                 <td ng-show="Read(rowIndex)">{{row.plusminus}}</td>
-                <td ng-show="Read(rowIndex)">{{row.points}}</td>
+                <td class="points" ng-show="Read(rowIndex)">{{row.points}}</td>
                 <td ng-show="Read(rowIndex)">{{(row.points/row.games) | number:2}}</td>
           </tr>
         </table>
