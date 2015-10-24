@@ -5,18 +5,17 @@
            [shl.utils.time :as time-utils]
            [shl.dao.db :as db]))
 
-(defn add-tournament [name startdate enddate 
-                      games-per-player playoff-teams-per-conference]
+(defn add-tournament [name startdate enddate playoff-teams-per-conference]
   (j/insert! db/db :tournament {:name name 
                                 :startdate (time/to-sql-date startdate)
                                 :enddate (time/to-sql-date enddate)
-                                :gamesperplayer games-per-player
                                 :playoffteamsperconference playoff-teams-per-conference
                                 :active false}))
 
-(defn add-conference [name tournamentid]
+(defn add-conference [name tournamentid games-per-player]
   (j/insert! db/db :conference {:name name 
-                                :tournamentid tournamentid}))
+                                :tournamentid tournamentid
+                                :gamesperplayer games-per-player}))
 
 (defn inactivate-tournaments []
   (j/update! db/db :tournament {:active false} ["active = ?" true]))
@@ -36,8 +35,7 @@
     (j/query db/db 
        (s/format (get-active-tournament-sql))
        :row-fn #(assoc % :startdate (str (time-utils/from-sql-date (% :startdate)))
-                         :enddate (str (time-utils/from-sql-date (% :enddate))))
-    )))
+                         :enddate (str (time-utils/from-sql-date (% :enddate)))))))
 
 (defn- get-tournaments-sql []
     (s/build :select :* 
@@ -48,8 +46,7 @@
     (j/query db/db 
        (s/format (get-tournaments-sql))
        :row-fn #(assoc % :startdate (str (time-utils/from-sql-date (% :startdate)))
-                         :enddate (str (time-utils/from-sql-date (% :enddate))))
-    ))
+                         :enddate (str (time-utils/from-sql-date (% :enddate))))))
 
 (defn- get-tournament-sql [tournamentid]
     (s/build :select :* 
@@ -62,8 +59,7 @@
     (first (j/query db/db 
        (s/format (get-tournament-sql tournamentid))
        :row-fn #(assoc % :startdate (str (time-utils/from-sql-date (% :startdate)))
-                         :enddate (str (time-utils/from-sql-date (% :enddate))))
-    )))
+                         :enddate (str (time-utils/from-sql-date (% :enddate)))))))
 
 (defn- get-tournament-by-name-sql [name]
     (s/build :select :* 
@@ -76,20 +72,15 @@
     (first (j/query db/db 
        (s/format (get-tournament-by-name-sql name))
        :row-fn #(assoc % :startdate (str (time-utils/from-sql-date (% :startdate)))
-                         :enddate (str (time-utils/from-sql-date (% :enddate))))
-    )))
+                         :enddate (str (time-utils/from-sql-date (% :enddate)))))))
 
 (defn- get-number-of-games-per-player-sql [conferenceid]
-  (s/build :select :t.gamesperplayer 
-           :from [[:conference :c]]
-           :join [[:tournament :t] [:= :c.tournamentid :t.id]] 
-           :where [:= :c.id conferenceid]
-           :order-by [:t.id]))
+  (s/build :select :c.gamesperplayer 
+           :from [[:conference :c]]))
 
 (defn get-number-of-games-per-player [conferenceid]
   (first (j/query db/db
-    (s/format (get-number-of-games-per-player-sql conferenceid))
-    )))
+    (s/format (get-number-of-games-per-player-sql conferenceid)))))
 
 (defn- get-conferences-sql [tournamentid]
   (s/build :select [:name :id] 
@@ -99,8 +90,7 @@
 
 (defn get-conferences [tournamentid]
   (j/query db/db 
-    (s/format (get-conferences-sql tournamentid))
-    ))
+    (s/format (get-conferences-sql tournamentid))))
 
 (defn- get-conference-sql [name tournamentid]
   (s/build :select :* 
@@ -112,8 +102,7 @@
 
 (defn get-conference [name tournamentid]
   (first (j/query db/db 
-    (s/format (get-conference-sql name tournamentid))
-    )))
+    (s/format (get-conference-sql name tournamentid)))))
 
 (defn- get-conferenceids-sql [tournamentid]
   (s/build :select [:c.id] 
@@ -123,5 +112,4 @@
 
 (defn get-conferenceids [tournamentid]
   (j/query db/db 
-    (s/format (get-conferenceids-sql tournamentid))
-    ))
+    (s/format (get-conferenceids-sql tournamentid))))

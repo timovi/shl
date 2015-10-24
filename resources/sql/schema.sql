@@ -27,7 +27,6 @@ CREATE TABLE tournament (
    name VARCHAR(256) NOT NULL,
    startdate DATE NOT NULL,
    enddate DATE NOT NULL,
-   gamesperplayer INTEGER NOT NULL DEFAULT 1,
    playoffteamsperconference INTEGER NOT NULL DEFAULT 0,
    active BOOLEAN,
    CONSTRAINT u_tournament_name UNIQUE (name)
@@ -37,6 +36,7 @@ CREATE TABLE conference (
    id SERIAL PRIMARY KEY,
    name VARCHAR(256) NOT NULL,
    tournamentid INTEGER NOT NULL,
+   gamesperplayer INTEGER NOT NULL DEFAULT 1,
    CONSTRAINT u_conference_tournament_name UNIQUE (tournamentid, name),
    CONSTRAINT fk_tournament FOREIGN KEY (tournamentid) REFERENCES tournament(id)
 );
