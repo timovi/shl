@@ -12,7 +12,7 @@
 	      {:form-params {:from "Solita Hockey League"
 	                     :color color 
 	                     :message message 
-	                     :notify false 
+	                     :notify true 
 	                     :message-format "html"}
 	       :content-type :json
 	       :socket-timeout 10000  ;; in milliseconds

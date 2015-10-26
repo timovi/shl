@@ -44,11 +44,11 @@
                                     "green"
                                     (str (:conferencename game-info) ": "
                                          (:hometeam game-info) 
-                                         " &lt;b&gt;"
+                                         " <b>"
                                          home-goals " - " 
                                          away-goals
-                                         (cond shootout " JA" overtime " RL" :else "")
-                                         "&lt;/b&gt; "
+                                         (cond shootout " RL" overtime " JA" :else "")
+                                         "</b> "
                                          (:awayteam game-info) ". "
                                          (cond (> home-goals away-goals) (str "Hyvä " (:homefirstname game-info) "!")
                                                (< home-goals away-goals) (str "Hyvä " (:awayfirstname game-info) "!")
