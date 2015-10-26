@@ -37,6 +37,7 @@ CREATE TABLE conference (
    name VARCHAR(256) NOT NULL,
    tournamentid INTEGER NOT NULL,
    gamesperplayer INTEGER NOT NULL DEFAULT 1,
+   hipchatchannelkey VARCHAR(256),
    CONSTRAINT u_conference_tournament_name UNIQUE (tournamentid, name),
    CONSTRAINT fk_tournament FOREIGN KEY (tournamentid) REFERENCES tournament(id)
 );
@@ -73,5 +74,6 @@ CREATE TABLE game (
 );
 
 INSERT INTO schema_version VALUES(1, NOW());
+INSERT INTO schema_version VALUES(2, NOW());
 
 COMMIT;

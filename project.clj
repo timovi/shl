@@ -11,6 +11,7 @@
                  [ring/ring-json "0.2.0"]
                  [compojure "1.1.3"]
                  [org.clojure/data.json "0.2.3"]
+                 [clj-http "2.0.0"]
                  [clj-time "0.6.0"]]
   :main ^:skip-aot shl.core
   :uberjar-name "shl.jar"

@@ -33,11 +33,14 @@
 (defn get-conferences [tournamentid]
   (response (dao/get-conferences (Integer/parseInt tournamentid))))
 
-(defn add-conference [name tournamentid games-per-player]
+(defn add-conference [name tournamentid games-per-player hipchat-channel-id]
   (when-not (and (str/blank? name) 
                  (str/blank? tournamentid)
                  (str/blank? games-per-player))
-    (dao/add-conference name (Integer/parseInt tournamentid) (Integer/parseInt games-per-player)))
+    (dao/add-conference name 
+                        (Integer/parseInt tournamentid) 
+                        (Integer/parseInt games-per-player) 
+                        (if (str/blank? hipchat-channel-id) nil hipchat-channel-id)))
   (response (dao/get-conference name (Integer/parseInt tournamentid))))
 
 (defroutes app-routes
@@ -48,5 +51,5 @@
     (POST "/" [name startdate enddate playoff-teams-per-conference] 
       (add name startdate enddate playoff-teams-per-conference))
     (GET  ["/:id/conferences/", :id #"[0-9]+"] [id] (get-conferences id))
-    (POST "/conferences/" [name tournamentid games-per-player] 
-      (add-conference name tournamentid games-per-player)))))
+    (POST "/conferences/" [name tournamentid games-per-player hipchat-channel-id] 
+      (add-conference name tournamentid games-per-player hipchat-channel-id)))))

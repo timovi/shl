@@ -5,6 +5,7 @@
             [compojure.handler :as handler]
             [ring.middleware.json :as middleware]
             [ring.util.response :as resp]
+            [shl.conf :as conf]
             [shl.controllers.game :as game]
             [shl.controllers.player :as player]
             [shl.controllers.role :as role]
@@ -39,6 +40,5 @@
   (run-jetty #'application {:port port :join? false}))
 
 (defn -main []
-  (let [port (Integer/parseInt 
-               (or (System/getenv "SHL_API_PORT") "8080"))]
+  (let [port (:shl-api-port conf/conf)]
   (start port)))

@@ -12,10 +12,11 @@
                                 :playoffteamsperconference playoff-teams-per-conference
                                 :active false}))
 
-(defn add-conference [name tournamentid games-per-player]
+(defn add-conference [name tournamentid games-per-player hipchat-channel-id]
   (j/insert! db/db :conference {:name name 
                                 :tournamentid tournamentid
-                                :gamesperplayer games-per-player}))
+                                :gamesperplayer games-per-player
+                                :hipchatchannelid hipchat-channel-id}))
 
 (defn inactivate-tournaments []
   (j/update! db/db :tournament {:active false} ["active = ?" true]))
@@ -24,11 +25,11 @@
   (j/update! db/db :tournament {:active true} ["id = ?" tournamentid]))
 
 (defn- get-active-tournament-sql []
-    (s/build :select :* 
-             :from [[:tournament :t]] 
-             :where [:= :t.active true]
+    (s/build :select   :* 
+             :from     [[:tournament :t]] 
+             :where    [:= :t.active true]
              :order-by [[:t.id :desc]]
-             :limit 1))
+             :limit    1))
 
 (defn get-active-tournament []
   (first 
@@ -38,8 +39,8 @@
                          :enddate (str (time-utils/from-sql-date (% :enddate)))))))
 
 (defn- get-tournaments-sql []
-    (s/build :select :* 
-             :from [[:tournament :t]] 
+    (s/build :select   :* 
+             :from     [[:tournament :t]] 
              :order-by [[:t.id :desc]]))
 
 (defn get-tournaments []
@@ -49,11 +50,11 @@
                          :enddate (str (time-utils/from-sql-date (% :enddate))))))
 
 (defn- get-tournament-sql [tournamentid]
-    (s/build :select :* 
-             :from [[:tournament :t]] 
-             :where [:= :t.id tournamentid]
+    (s/build :select   :* 
+             :from     [[:tournament :t]] 
+             :where    [:= :t.id tournamentid]
              :order-by [:t.id]
-             :limit 1))
+             :limit    1))
 
 (defn get-tournament [tournamentid]
     (first (j/query db/db 
@@ -62,11 +63,11 @@
                          :enddate (str (time-utils/from-sql-date (% :enddate)))))))
 
 (defn- get-tournament-by-name-sql [name]
-    (s/build :select :* 
-             :from [[:tournament :t]] 
-             :where [:= :t.name name]
+    (s/build :select   :* 
+             :from     [[:tournament :t]] 
+             :where    [:= :t.name name]
              :order-by [:t.id]
-             :limit 1))
+             :limit    1))
 
 (defn get-tournament-by-name [name]
     (first (j/query db/db 
@@ -76,16 +77,18 @@
 
 (defn- get-number-of-games-per-player-sql [conferenceid]
   (s/build :select :c.gamesperplayer 
-           :from [[:conference :c]]))
+           :from   [[:conference :c]]
+           :where  [:= :c.id conferenceid]
+           :limit  1))
 
 (defn get-number-of-games-per-player [conferenceid]
   (first (j/query db/db
     (s/format (get-number-of-games-per-player-sql conferenceid)))))
 
 (defn- get-conferences-sql [tournamentid]
-  (s/build :select [:name :id] 
-           :from [[:conference :c]]
-           :where [:= :c.tournamentid tournamentid]
+  (s/build :select   [:name :id] 
+           :from     [[:conference :c]]
+           :where    [:= :c.tournamentid tournamentid]
            :order-by [:c.id]))
 
 (defn get-conferences [tournamentid]
@@ -93,21 +96,21 @@
     (s/format (get-conferences-sql tournamentid))))
 
 (defn- get-conference-sql [name tournamentid]
-  (s/build :select :* 
-           :from [[:conference :c]]
-           :where [:and [:= :c.name name]
-                        [:= :c.tournamentid tournamentid]]
+  (s/build :select   :* 
+           :from     [[:conference :c]]
+           :where    [:and [:= :c.name name]
+                           [:= :c.tournamentid tournamentid]]
            :order-by [:c.id]
-           :limit 1))
+           :limit    1))
 
 (defn get-conference [name tournamentid]
   (first (j/query db/db 
     (s/format (get-conference-sql name tournamentid)))))
 
 (defn- get-conferenceids-sql [tournamentid]
-  (s/build :select [:c.id] 
-           :from [[:conference :c]]
-           :where [:= :c.tournamentid tournamentid] 
+  (s/build :select   [:c.id] 
+           :from     [[:conference :c]]
+           :where    [:= :c.tournamentid tournamentid] 
            :order-by [:c.id]))
 
 (defn get-conferenceids [tournamentid]

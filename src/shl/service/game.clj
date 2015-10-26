@@ -1,5 +1,6 @@
 (ns shl.service.game
-  (:require [shl.dao.game :as game-dao]
+  (:require [shl.service.chat :as chat-service]
+            [shl.dao.game :as game-dao]
             [shl.dao.player :as player-dao]
             [shl.dao.conference :as conference-dao]))
 
@@ -33,3 +34,22 @@
         players (map :id (player-dao/get-playerids conferenceid))
         game-count (:gamesperplayer (conference-dao/get-number-of-games-per-player conferenceid))]
        (add-games-for-player playerid players game-count)))
+
+(defn update-game 
+  "Updates the game result and send a hipchat notification"
+  [gameid home-goals away-goals overtime shootout playdate]
+  (let [game-info (game-dao/get-game-notification-info gameid)]
+    (game-dao/update-game gameid home-goals away-goals overtime shootout playdate)
+    (chat-service/send-notification (:hipchatchannelid game-info)
+                                    "green"
+                                    (str (:conferencename game-info) ": "
+                                         (:hometeam game-info) 
+                                         " &lt;b&gt;"
+                                         home-goals " - " 
+                                         away-goals
+                                         (cond shootout " JA" overtime " RL" :else "")
+                                         "&lt;/b&gt; "
+                                         (:awayteam game-info) ". "
+                                         (cond (> home-goals away-goals) (str "Hyvä " (:homefirstname game-info) "!")
+                                               (< home-goals away-goals) (str "Hyvä " (:awayfirstname game-info) "!")
+                                               :else "Tasapeli!")))))
